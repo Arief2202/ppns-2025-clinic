@@ -11,6 +11,7 @@
     --body-color: #E4E9F7;
     --sidebar-color: #FFF;
     --primary-color: #103FD5;
+    --opened-menu-color: #777777;
     --primary-color-light: #103FD5;
     --primary-color-light-hover: #003cff;
     --color-fade:  #E4E9F7;
@@ -60,6 +61,7 @@ body.dark{
     --primary-color-light: #103FD5;
     --primary-color-light-hover: #103FD5;
     --color-fade: #3a3b3c;
+    --opened-menu-color: #3a3b3c;
     --toggle-color: #fff;
     --text-color: #ccc;
     --text-hover-color: #ccc;

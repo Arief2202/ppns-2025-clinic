@@ -111,7 +111,7 @@
 .sidebar .nav-links li .sub-menu{
   padding: 0px;
   margin-top: -5px;
-  background: var(--primary-color);
+  background: var(--opened-menu-color);
   display: none;
 }
 .sidebar .nav-links li.showMenu .sub-menu{
