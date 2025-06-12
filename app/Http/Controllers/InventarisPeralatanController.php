@@ -28,7 +28,7 @@ class InventarisPeralatanController extends Controller
         $fileName = date("YmdHis").'_inspeksi_'.$request->dokumen_inspeksi->getClientOriginalName();
         $fileName2 = date("YmdHis").'_kalibrasi_'.$request->dokumen_kalibrasi->getClientOriginalName();
         $request->dokumen_inspeksi->move(public_path($destinationPath), $fileName);
-        $request->dokumen_kalibrasi->move(public_path($destinationPath), $fileName);
+        $request->dokumen_kalibrasi->move(public_path($destinationPath), $fileName2);
         InventarisPeralatan::create([
             'nama' => $request->nama,
             'kategori_peralatan' => $request->kategori_peralatan,

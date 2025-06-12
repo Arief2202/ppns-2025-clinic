@@ -29,7 +29,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Kategori_peralatan</th>
+                                <th>Kategori Peralatan</th>
                                 <th>Jumlah</th>
                                 <th>Kondisi</th>
                                 <th>Tanggal Inspeksi</th>
