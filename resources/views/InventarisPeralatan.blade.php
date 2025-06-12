@@ -91,39 +91,39 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="nama" class="form-label">nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
                                 <label for="kategori_peralatan" class="form-label">Kategori Peralatan</label>
-                                <select class="form-select" name="kategori_peralatan" id="kategori_peralatan">
+                                <select class="form-select" name="kategori_peralatan" id="kategori_peralatan" required>
                                     <option value="Medis">Medis</option>
                                     <option value="Non Medis">Non Medis</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="jumlah" class="form-label">jumlah</label>
-                                <input type="number" class="form-control" id="jumlah" name="jumlah">
+                                <label for="jumlah" class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" required>
                             </div>
                             <div class="mb-3">
-                                <label for="kondisi" class="form-label">kondisi</label>
-                                <input type="text" class="form-control" id="kondisi" name="kondisi">
+                                <label for="kondisi" class="form-label">Kondisi</label>
+                                <input type="text" class="form-control" id="kondisi" name="kondisi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="tanggal_inspeksi" class="form-label">Tanggal Inspeksi</label>
-                                <input type="date" class="form-control" id="tanggal_inspeksi" name="tanggal_inspeksi">
+                                <input type="date" class="form-control" id="tanggal_inspeksi" name="tanggal_inspeksi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="dokumen_inspeksi" class="form-label">Dokumen Inspeksi</label>
-                                <input type="file" class="form-control" id="dokumen_inspeksi" name="dokumen_inspeksi">
+                                <input type="file" class="form-control" id="dokumen_inspeksi" name="dokumen_inspeksi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="tanggal_kalibrasi" class="form-label">Tanggal Kalibrasi</label>
-                                <input type="date" class="form-control" id="tanggal_kalibrasi" name="tanggal_kalibrasi">
+                                <input type="date" class="form-control" id="tanggal_kalibrasi" name="tanggal_kalibrasi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="dokumen_kalibrasi" class="form-label">Dokumen Kalibrasi</label>
-                                <input type="file" class="form-control" id="dokumen_kalibrasi" name="dokumen_kalibrasi">
+                                <input type="file" class="form-control" id="dokumen_kalibrasi" name="dokumen_kalibrasi" required>
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -84,19 +84,19 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="nip" class="form-label">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
+                                <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Kondisi</label>
-                                <input type="text" class="form-control" id="kondisi" name="kondisi">
+                                <input type="text" class="form-control" id="kondisi" name="kondisi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Tanggal Inspeksi</label>
-                                <input type="date" class="form-control" id="tanggal_inspeksi" name="tanggal_inspeksi">
+                                <input type="date" class="form-control" id="tanggal_inspeksi" name="tanggal_inspeksi" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Dokumen Inspeksi</label>
-                                <input type="file" class="form-control" id="dokumen_inspeksi" name="dokumen_inspeksi">
+                                <input type="file" class="form-control" id="dokumen_inspeksi" name="dokumen_inspeksi" required>
                             </div>
                         </div>
                         <div class="modal-footer">

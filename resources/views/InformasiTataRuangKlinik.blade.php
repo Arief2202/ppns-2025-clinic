@@ -35,13 +35,13 @@
                 <div class="modal-content">
                     <form method="POST" enctype="multipart/form-data">@csrf
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan Data</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Gambar Ruang Klinik</label>
-                                <input class="form-control" type="file" id="formFile" name="file">
+                                <input class="form-control" type="file" id="formFile" name="file" required>
                             </div>
                         </div>
                         <div class="modal-footer">

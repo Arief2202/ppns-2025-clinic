@@ -84,19 +84,19 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="nip" class="form-label">Judul Surat</label>
-                                <input type="text" class="form-control" id="judul_surat" name="judul_surat">
+                                <input type="text" class="form-control" id="judul_surat" name="judul_surat" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Tanggal Terbit</label>
-                                <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit">
+                                <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Berlaku Hingga</label>
-                                <input type="date" class="form-control" id="berlaku_hingga" name="berlaku_hingga">
+                                <input type="date" class="form-control" id="berlaku_hingga" name="berlaku_hingga" required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Dokumen Surat</label>
-                                <input type="file" class="form-control" id="dokumen_surat" name="dokumen_surat">
+                                <input type="file" class="form-control" id="dokumen_surat" name="dokumen_surat" required>
                             </div>
                         </div>
                         <div class="modal-footer">
