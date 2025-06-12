@@ -83,19 +83,19 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="nip" class="form-label">Judul Surat</label>
+                                <label for="judul_surat" class="form-label">Judul Surat</label>
                                 <input type="text" class="form-control" id="judul_surat" name="judul_surat" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tanggal Terbit</label>
+                                <label for="tanggal_terbit" class="form-label">Tanggal Terbit</label>
                                 <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Berlaku Hingga</label>
+                                <label for="berlaku_hingga" class="form-label">Berlaku Hingga</label>
                                 <input type="date" class="form-control" id="berlaku_hingga" name="berlaku_hingga" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Dokumen Surat</label>
+                                <label for="dokumen_surat" class="form-label">Dokumen Surat</label>
                                 <input type="file" class="form-control" id="dokumen_surat" name="dokumen_surat" required>
                             </div>
                         </div>
@@ -113,25 +113,25 @@
                 <div class="modal-content">
                     <form action="/sarana-prasarana/izin-pendirian-dan-operasional-klinik/edit" method="POST" enctype="multipart/form-data">@csrf
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" id="idEdit" name="id">
                             <div class="mb-3">
-                                <label for="nip" class="form-label">Judul Surat</label>
+                                <label for="judul_suratEdit" class="form-label">Judul Surat</label>
                                 <input type="text" class="form-control" id="judul_suratEdit" name="judul_surat">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tanggal Terbit</label>
+                                <label for="tanggal_terbitEdit" class="form-label">Tanggal Terbit</label>
                                 <input type="date" class="form-control" id="tanggal_terbitEdit" name="tanggal_terbit">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Berlaku Hingga</label>
+                                <label for="berlaku_hinggaEdit" class="form-label">Berlaku Hingga</label>
                                 <input type="date" class="form-control" id="berlaku_hinggaEdit" name="berlaku_hingga">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Dokumen Surat</label>
+                                <label for="dokumen_suratEdit" class="form-label">Dokumen Surat</label>
                                 <input type="file" class="form-control" id="dokumen_suratEdit" name="dokumen_surat">
                             </div>
                         </div>

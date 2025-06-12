@@ -140,7 +140,7 @@
                 <div class="modal-content">
                     <form action="/sarana-prasarana/inventaris-peralatan/edit" method="POST" enctype="multipart/form-data">@csrf
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

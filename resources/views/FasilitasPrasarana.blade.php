@@ -83,19 +83,19 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="nip" class="form-label">Nama</label>
+                                <label for="nama" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Kondisi</label>
+                                <label for="kondisi" class="form-label">Kondisi</label>
                                 <input type="text" class="form-control" id="kondisi" name="kondisi" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tanggal Inspeksi</label>
+                                <label for="tanggal_inspeksi" class="form-label">Tanggal Inspeksi</label>
                                 <input type="date" class="form-control" id="tanggal_inspeksi" name="tanggal_inspeksi" required>
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Dokumen Inspeksi</label>
+                                <label for="dokumen_inspeksi" class="form-label">Dokumen Inspeksi</label>
                                 <input type="file" class="form-control" id="dokumen_inspeksi" name="dokumen_inspeksi" required>
                             </div>
                         </div>
@@ -113,25 +113,25 @@
                 <div class="modal-content">
                     <form action="/sarana-prasarana/fasilitas-prasarana/edit" method="POST" enctype="multipart/form-data">@csrf
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" id="idEdit" name="id">
                             <div class="mb-3">
-                                <label for="nip" class="form-label">Nama</label>
+                                <label for="namaEdit" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="namaEdit" name="nama">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Kondisi</label>
+                                <label for="kondisiEdit" class="form-label">Kondisi</label>
                                 <input type="text" class="form-control" id="kondisiEdit" name="kondisi">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Tanggal Inspeksi</label>
+                                <label for="tanggal_inspeksiEdit" class="form-label">Tanggal Inspeksi</label>
                                 <input type="date" class="form-control" id="tanggal_inspeksiEdit" name="tanggal_inspeksi">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Dokumen Inspeksi</label>
+                                <label for="dokumen_inspeksiEdit" class="form-label">Dokumen Inspeksi</label>
                                 <input type="file" class="form-control" id="dokumen_inspeksiEdit" name="dokumen_inspeksi">
                             </div>
                         </div>
