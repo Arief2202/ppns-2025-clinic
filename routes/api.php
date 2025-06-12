@@ -39,7 +39,7 @@ Route::get('/user/get', [UserController::class, 'getById']);
 Route::get('/sarana-prasarana/informasi-tata-ruang-klinik', [InformasiTataRuangKlinikController::class, 'getById']);
 Route::get('/sarana-prasarana/fasilitas-prasarana', [FasilitasPrasaranaController::class, 'getById']);
 Route::get('/sarana-prasarana/inventaris-peralatan', [InventarisPeralatanController::class, 'getById']);
-Route::get('/sarana-prasarana /izin-pendirian-dan-operasional-klinik', [IzinPendirianDanOperasionalKlinikController::class, 'getById']);
+Route::get('/sarana-prasarana/izin-pendirian-dan-operasional-klinik', [IzinPendirianDanOperasionalKlinikController::class, 'getById']);
 Route::get('/sarana-prasarana/standard-operasional-prosedur-klinik', [StandardOperasionalProsedurKlinikController::class, 'getById']);
 
 Route::get('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-sebelum-bekerja/get', [PemeriksaanKesehatanSebelumBerkerjaController::class, 'getById']);

@@ -237,7 +237,9 @@
                     _token: document.getElementsByTagName("meta")[3].content
                 }
             });
-            window.location.href = "/sarana-prasarana/inventaris-peralatan";
+            setTimeout(function() {
+                window.location.href = "/sarana-prasarana/inventaris-peralatan";
+            }, 200);
         }
     </script>
 @endsection

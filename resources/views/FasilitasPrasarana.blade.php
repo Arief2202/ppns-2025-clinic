@@ -181,7 +181,9 @@
                     _token: document.getElementsByTagName("meta")[3].content
                 }
             });
-            window.location.href = "/sarana-prasarana/fasilitas-prasarana";
+            setTimeout(function() {
+                window.location.href = "/sarana-prasarana/fasilitas-prasarana";
+            }, 200);
         }
     </script>
 @endsection
