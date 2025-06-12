@@ -16,3 +16,12 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+
+/public/uploads/pelaporan-kecelakaan-kerja/*/*
+/public/uploads/sarana-prasarana/*/*
+/public/uploads/SMK3/health-risk-assesment/*
+/public/uploads/SMK3/laporan-pelayanan/*
+/public/uploads/SMK3/pemeriksaan-kesehatan/*/*
+!/public/uploads/SMK3/pemeriksaan-kesehatan/*/.gitignore
+!/public/uploads/*/*/.gitignore

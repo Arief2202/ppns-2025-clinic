@@ -73,12 +73,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/sarana-prasarana/inventaris-peralatan', 'create');
         Route::post('/sarana-prasarana/inventaris-peralatan/edit', 'edit');
         Route::post('/sarana-prasarana/inventaris-peralatan/delete', 'delete');
+        Route::post('/sarana-prasarana/inventaris-peralatan/validate', 'validate_data');
     });
     Route::controller(IzinPendirianDanOperasionalKlinikController::class)->group(function () {
         Route::get('/sarana-prasarana/izin-pendirian-dan-operasional-klinik', 'index');
         Route::post('/sarana-prasarana/izin-pendirian-dan-operasional-klinik', 'create');
         Route::post('/sarana-prasarana/izin-pendirian-dan-operasional-klinik/edit', 'edit');
         Route::post('/sarana-prasarana/izin-pendirian-dan-operasional-klinik/delete', 'delete');
+        Route::post('/sarana-prasarana/izin-pendirian-dan-operasional-klinik/validate', 'validate_data');
     });
     Route::controller(StandardOperasionalProsedurKlinikController::class)->group(function () {
         Route::get('/sarana-prasarana/standard-operasional-prosedur-klinik', 'index');
@@ -110,6 +112,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan', 'create');
         Route::post('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan/edit', 'edit');
         Route::post('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan/delete', 'delete');
+        Route::post('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan/validate', 'validate_data');
     });
     Route::controller(PedomanPemeriksaanKesehatanController::class)->group(function () {
         Route::get('/smk3/pemeriksaan-kesehatan-pekerja/pedoman-pemeriksaan-kesehatan', 'index');
@@ -122,12 +125,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/smk3/health-risk-assesment', 'create');
         Route::post('/smk3/health-risk-assesment/edit', 'edit');
         Route::post('/smk3/health-risk-assesment/delete', 'delete');
+        Route::post('/smk3/health-risk-assesment/validate', 'validate_data');
     });
     Route::controller(LaporanPelayananDanPemeriksaanKesehatanController::class)->group(function () {
         Route::get('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan', 'index');
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan', 'create');
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/edit', 'edit');
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/delete', 'delete');
+        Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/validate', 'validate_data');
     });
     Route::controller(LaporanKecelakaanKerjaController::class)->group(function () {
         Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', 'index');

@@ -12,8 +12,8 @@
               <h5 class="card-title">Informasi Tata Ruang Klinik</h5>
             </div>
           </div>
+        @if(Auth::user()->role_id == 1)
           <div class="col-6 d-flex justify-content-end h-50">
-            @if(Auth::user()->role_id == 1)
                 @if($data && !$data->validator_id)
                     <form method="POST" action="/sarana-prasarana/informasi-tata-ruang-klinik/validate">@csrf
                         <button type="submit" class="btn btn-success me-3">Validasi Gambar</button>
@@ -21,9 +21,9 @@
                 @else
                     <button class="btn btn-success me-3 disabled">Validasi Gambar</button>
                 @endif
-            @endif
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambahkan Data</button>
           </div>
+        @endif
         </div>
         <div class="d-flex justify-content-center">
             @if($data)<img src="{{$data->gambar_ruang_klinik}}" alt="" style="max-height: 60vh; max-width: 80%;">@endif

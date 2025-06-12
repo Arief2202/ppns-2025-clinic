@@ -25,7 +25,7 @@
     <?php $loggedID = Auth::user()->id?>
     @include('layouts.sidebar')
 
-    <section class="home">
+    <section class="home d-flex justify-content-center">
 
         @yield('body')
 

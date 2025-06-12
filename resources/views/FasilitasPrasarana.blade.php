@@ -12,9 +12,11 @@
               <h5 class="card-title">Fasilitas Prasarana</h5>
             </div>
           </div>
+          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
           <div class="col-6 d-flex justify-content-end h-50">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Data</button>
           </div>
+          @endif
         </div>
 
         <div style="max-height: 100vh; overflow-y:auto;">
@@ -31,9 +33,13 @@
                                 <th>Tanggal Inspeksi</th>
                                 <th>Dokumen Inspeksi</th>
                                 <th>Editor</th>
+                                @if(Auth::user()->role_id == 1)
                                 <th>Validate</th>
+                                @endif
                                 <th>Validator</th>
+                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                 <th>Edit</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="tbody">
@@ -45,14 +51,18 @@
                                 <td>{{date("d M Y", strtotime($data->tanggal_inspeksi))}}</td>
                                 <td><button class="btn btn-primary" onclick="window.open('{{$data->dokumen_inspeksi}}','_blank')">Lihat Dokumen</button></td>
                                 <td>{{$data->editor()->name}}</td>
+                                @if(Auth::user()->role_id == 1)
                                 <td>
                                     @if(!$data->validator()) <form method="POST" action="/sarana-prasarana/fasilitas-prasarana/validate">@csrf @endif
                                         <input type="hidden" name="id" value="{{$data->id}}">
                                         <button class="btn btn-success" {{$data->validator() ? 'disabled' : 'type="submit"'}}>Validasi</button>
                                     @if(!$data->validator()) </form> @endif
                                 </td>
+                                @endif
                                 <td>{{$data->validator() ? $data->validator()->name : '-'}}</td>
+                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                 <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="changeModal({{$data->id}})">Edit</button></td>
+                                @endif
                             </tr>
                             <?php } ?>
                         </tbody>
