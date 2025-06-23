@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePemeriksaanKesehatanBerkalaRequest;
-use App\Http\Requests\UpdatePemeriksaanKesehatanBerkalaRequest;
 use App\Models\PemeriksaanKesehatanBerkala;
-use App\Models\User;
-use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class PemeriksaanKesehatanBerkalaController extends Controller
 {
@@ -18,9 +14,8 @@ class PemeriksaanKesehatanBerkalaController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id != 1) return redirect('/');
         return view('PemeriksaanKesehatanBerkala', [
-            'datas' => User::all(),
+            'datas' => PemeriksaanKesehatanBerkala::all(),
         ]);
     }
 
@@ -29,32 +24,55 @@ class PemeriksaanKesehatanBerkalaController extends Controller
      */
     public function create(Request $request)
     {
-        User::create([
-            'name' => $request->name,
-            'role_id' => $request->role,
-            'nip' => $request->nip,
-            'password' => Hash::make($request->password),
+        $destinationPath = 'uploads/SMK3/pemeriksaan-kesehatan/pemeriksaan-kesehatan-berkala';
+        $fileName = date("YmdHis").'_'.$request->dokumen_hasil_pemeriksaan->getClientOriginalName();
+        $request->dokumen_hasil_pemeriksaan->move(public_path($destinationPath), $fileName);
+        PemeriksaanKesehatanBerkala::create([
+            'id_pekerja' => $request->id_pekerja,
+            'nama_pekerja' => $request->nama_pekerja,
+            'bagian' => $request->bagian,
+            'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
+            'hasil' => $request->hasil,
+            'catatan' => $request->catatan,
+            'dokumen_hasil_pemeriksaan' => '/'.$destinationPath.'/'.$fileName,
+            'editor_id' => Auth::user()->id,
         ]);
-        return redirect('/users');
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-berkala');
     }
     public function edit(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
-        if(isset($request->name)) $user->name = $request->name;
-        if(isset($request->role)) $user->role_id = $request->role;
-        if(isset($request->password)) $user->password = Hash::make($request->password);
-        $user->save();
-        return redirect('/users');
+        $data = PemeriksaanKesehatanBerkala::where('id', "=", $request->id)->first();
+        if($data){
+            $data->editor_id = Auth::user()->id;
+            if(isset($request->id_pekerja)) $data->id_pekerja = $request->id_pekerja;
+            if(isset($request->nama_pekerja)) $data->nama_pekerja = $request->nama_pekerja;
+            if(isset($request->bagian)) $data->bagian = $request->bagian;
+            if(isset($request->tanggal_pemeriksaan)) $data->tanggal_pemeriksaan = $request->tanggal_pemeriksaan;
+            if(isset($request->hasil)) $data->hasil = $request->hasil;
+            if(isset($request->catatan)) $data->catatan = $request->catatan;
+            if($request->dokumen_hasil_pemeriksaan){
+                File::delete(public_path().$data->dokumen_hasil_pemeriksaan);
+                $destinationPath = 'uploads/SMK3/pemeriksaan-kesehatan/pemeriksaan-kesehatan-berkala';
+                $fileName = date("YmdHis").'_'.$request->dokumen_hasil_pemeriksaan->getClientOriginalName();
+                $request->dokumen_hasil_pemeriksaan->move(public_path($destinationPath), $fileName);
+                $data->dokumen_hasil_pemeriksaan = '/'.$destinationPath.'/'.$fileName;
+            }
+            $data->save();
+        }
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-berkala');
     }
     public function delete(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
-        if($user) $user->delete();
-        return redirect('/users');
+        $data = PemeriksaanKesehatanBerkala::where('id', "=", $request->id)->first();
+        if($data){
+            File::delete(public_path().$data->dokumen_hasil_pemeriksaan);
+            $data->delete();
+        }
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-berkala');
     }
     public function getById(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
+        $user = PemeriksaanKesehatanBerkala::where('id', "=", $request->id)->first();
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($user);die;
     }

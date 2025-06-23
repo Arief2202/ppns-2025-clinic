@@ -36,10 +36,12 @@ Route::get('/version', function () {
 });
 
 Route::get('/', function () {
-    return view('login.read');
+    if(!Auth::user()) return view('login.read');
+    return redirect('/dashboard');
 });
 Route::get('/login', function () {
-    return view('login.read');
+    if(!Auth::user()) return view('login.read');
+    return redirect('/dashboard');
 })->name('login');
 Route::get('/test', function () {
     return view('test');
