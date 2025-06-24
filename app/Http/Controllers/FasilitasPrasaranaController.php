@@ -70,9 +70,9 @@ class FasilitasPrasaranaController extends Controller
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($user);die;
     }
-    public function validate_data(){
+    public function validate_data(Request $request){
         if(Auth::user()->role_id != 1) return redirect('/');
-        $datas = FasilitasPrasarana::first();
+        $datas = FasilitasPrasarana::where('id', "=", $request->id)->first();
         $datas->validator_id = Auth::user()->id;
         $datas->save();
         return redirect('/sarana-prasarana/fasilitas-prasarana');

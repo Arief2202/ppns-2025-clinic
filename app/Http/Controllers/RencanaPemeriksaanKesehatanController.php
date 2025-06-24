@@ -10,6 +10,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class RencanaPemeriksaanKesehatanController extends Controller
 {
@@ -18,9 +19,8 @@ class RencanaPemeriksaanKesehatanController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id != 1) return redirect('/');
         return view('RencanaPemeriksaanKesehatan', [
-            'datas' => User::all(),
+            'datas' => RencanaPemeriksaanKesehatan::all(),
         ]);
     }
 
@@ -29,33 +29,50 @@ class RencanaPemeriksaanKesehatanController extends Controller
      */
     public function create(Request $request)
     {
-        User::create([
-            'name' => $request->name,
-            'role_id' => $request->role,
-            'nip' => $request->nip,
-            'password' => Hash::make($request->password),
+        if(Auth::user()->role_id != 1 && Auth::user()->role_id != 3) return redirect('/');
+        RencanaPemeriksaanKesehatan::create([
+            'jenis_pemeriksaan' => $request->jenis_pemeriksaan,
+            'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
+            'jumlah_peserta' => $request->jumlah_peserta,
+            'editor_id' => Auth::user()->id,
         ]);
-        return redirect('/users');
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan');
     }
     public function edit(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
-        if(isset($request->name)) $user->name = $request->name;
-        if(isset($request->role)) $user->role_id = $request->role;
-        if(isset($request->password)) $user->password = Hash::make($request->password);
-        $user->save();
-        return redirect('/users');
+        if(Auth::user()->role_id != 1 && Auth::user()->role_id != 3) return redirect('/');
+        $data = RencanaPemeriksaanKesehatan::where('id', "=", $request->id)->first();
+        if($data){
+            $data->validator_id = null;
+            $data->editor_id = Auth::user()->id;
+            if(isset($request->jenis_pemeriksaan)) $data->jenis_pemeriksaan = $request->jenis_pemeriksaan;
+            if(isset($request->tanggal_pelaksanaan)) $data->tanggal_pelaksanaan = $request->tanggal_pelaksanaan;
+            if(isset($request->jumlah_peserta)) $data->jumlah_peserta = $request->jumlah_peserta;
+            $data->save();
+        }
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan');
     }
     public function delete(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
-        if($user) $user->delete();
-        return redirect('/users');
+        if(Auth::user()->role_id != 1 && Auth::user()->role_id != 3) return redirect('/');
+        $data = RencanaPemeriksaanKesehatan::where('id', "=", $request->id)->first();
+        if($data){
+            File::delete(public_path().$data->dokumen_inspeksi);
+            $data->delete();
+        }
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan');
     }
     public function getById(Request $request)
     {
-        $user = User::where('id', "=", $request->id)->first();
+        $user = RencanaPemeriksaanKesehatan::where('id', "=", $request->id)->first();
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($user);die;
+    }
+    public function validate_data(Request $request){
+        if(Auth::user()->role_id != 3) return redirect('/');
+        $datas = RencanaPemeriksaanKesehatan::where("id", "=", $request->id)->first();
+        $datas->validator_id = Auth::user()->id;
+        $datas->save();
+        return redirect('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan');
     }
 }

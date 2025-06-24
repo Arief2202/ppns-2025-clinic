@@ -71,9 +71,9 @@ class IzinPendirianDanOperasionalKlinikController extends Controller
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($user);die;
     }
-    public function validate_data(){
+    public function validate_data(Request $request){
         if(Auth::user()->role_id != 4) return redirect('/');
-        $datas = IzinPendirianDanOperasionalKlinik::first();
+        $datas = IzinPendirianDanOperasionalKlinik::where('id', "=", $request->id)->first();
         $datas->validator_id = Auth::user()->id;
         $datas->save();
         return redirect('/sarana-prasarana/izin-pendirian-dan-operasional-klinik');
