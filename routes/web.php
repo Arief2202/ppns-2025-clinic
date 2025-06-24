@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/users', 'create')->name('user_create');
         Route::post('/users/edit', 'edit')->name('user_edit');
         Route::post('/users/delete', 'delete')->name('user_delete');
+
+        Route::get('/profile', 'viewProfile')->name('profile_view');
+        Route::post('/profile/edit', 'editProfile')->name('profile_edit');
     });
     Route::controller(PasienController::class)->group(function () {
         Route::get('/pasien', 'index');
@@ -278,6 +281,8 @@ Route::middleware('auth')->group(function () { //FOR MENU PAGE
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', function () { return view('profile'); });
+
     Route::get('/manajemen-farmasi/daftar-obat', function () { return view('test'); });
     Route::get('/manajemen-farmasi/daftar-bmhp', function () { return view('test'); });
     Route::get('/manajemen-farmasi/pengadaan', function () { return view('test'); });
@@ -296,9 +301,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/rekam-medis/penjaminan-mutu', function () { return view('test'); });
     Route::get('/rekam-medis/klaim-pembiayaan', function () { return view('test'); });
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

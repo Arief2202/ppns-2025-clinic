@@ -9,7 +9,7 @@
         <div class="row mt-2 mb-3">
           <div class="col-6">
             <div class="col">
-              <h5 class="card-title">Users</h5>
+              <h5 class="card-title">Pasien</h5>
             </div>
           </div>
           <div class="col-6 d-flex justify-content-end h-50">

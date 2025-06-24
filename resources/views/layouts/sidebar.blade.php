@@ -7,24 +7,26 @@
 
         {{-- ============== TOP SIDE BAR ============= --}}
         <li>
-        <div class="profile-details">
-            <div class="profile-content">
-                <img class="fotoProfil" alt="Foto Profil">
-            </div>
-            <div class="name-job">
-            <div class="profile_name h-50">{{ Auth::user()->name }}</div>
-            <div class="job">
-                {{Auth::user()->role_id == 0 ? 'Guest' : ''}}
-                {{Auth::user()->role_id == 1 ? 'Dokter' : ''}}
-                {{Auth::user()->role_id == 2 ? 'Perawat' : ''}}
-                {{Auth::user()->role_id == 3 ? 'Sekretaris P2K3' : ''}}
-                {{Auth::user()->role_id == 4 ? 'Direksi' : ''}}
-                {{Auth::user()->role_id == 5 ? 'Psikolog' : ''}}
-                {{Auth::user()->role_id == 6 ? 'Apoteker' : ''}}
-                {{Auth::user()->role_id == 7 ? 'Petugas Rekam Medis' : ''}}
-            </div>
-            </div>
-        </div>
+            <a href="/profile">
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img class="fotoProfil" alt="Foto Profil">
+                    </div>
+                    <div class="name-job">
+                    <div class="profile_name h-50">{{ Auth::user()->name }}</div>
+                    <div class="job">
+                        {{Auth::user()->role_id == 0 ? 'Guest' : ''}}
+                        {{Auth::user()->role_id == 1 ? 'Dokter' : ''}}
+                        {{Auth::user()->role_id == 2 ? 'Perawat' : ''}}
+                        {{Auth::user()->role_id == 3 ? 'Sekretaris P2K3' : ''}}
+                        {{Auth::user()->role_id == 4 ? 'Direksi' : ''}}
+                        {{Auth::user()->role_id == 5 ? 'Psikolog' : ''}}
+                        {{Auth::user()->role_id == 6 ? 'Apoteker' : ''}}
+                        {{Auth::user()->role_id == 7 ? 'Petugas Rekam Medis' : ''}}
+                    </div>
+                    </div>
+                </div>
+            </a>
         </li>
 
         {{-- ============== MID (KOMPONEN) SIDE BAR ============= --}}
