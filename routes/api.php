@@ -47,9 +47,8 @@ Route::get('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-berkala/ge
 Route::get('/smk3/pemeriksaan-kesehatan-pekerja/pemeriksaan-kesehatan-khusus/get', [PemeriksaanKesehatanKhususController::class, 'getById']);
 Route::get('/smk3/pemeriksaan-kesehatan-pekerja/rencana-pemeriksaan-kesehatan/get', [RencanaPemeriksaanKesehatanController::class, 'getById']);
 Route::get('/smk3/pemeriksaan-kesehatan-pekerja/pedoman-pemeriksaan-kesehatan/get', [PedomanPemeriksaanKesehatan::class, 'getById']);
-
-Route::get('/smk3/health-risk-assesment', [HealthRiskAssesmentController::class, 'getById']);
-Route::get('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan', [LaporanPelayananDanPemeriksaanKesehatanController::class, 'getById']);
+Route::get('/smk3/health-risk-assesment/get', [HealthRiskAssesmentController::class, 'getById']);
+Route::get('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/get', [LaporanPelayananDanPemeriksaanKesehatanController::class, 'getById']);
 
 Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', [LaporanKecelakaanKerjaController::class, 'getById']);
 Route::get('/pelaporan-kecelakaan/laporan-analisis-kecelakaan-kerja', [LaporanAnalisisKecelakaanKerjaController::class, 'getById']);

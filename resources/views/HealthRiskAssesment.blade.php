@@ -1,4 +1,4 @@
-
+Health Risk Assesment
 @extends('layouts.main')
 
 @section('body')
@@ -7,15 +7,17 @@
             <div class="alert-danger mt-1 p-2">{{ $errorMessage }}</div>
         @endif
 
-        <div class="row mt-2">
+        <div class="row mt-2 mb-3">
           <div class="col-6">
             <div class="col">
-              <h5 class="card-title">Health Risk Assesment</h5>
+              <h5 class="card-title">Fasilitas Prasarana</h5>
             </div>
           </div>
+          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
           <div class="col-6 d-flex justify-content-end h-50">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambahkan Data</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Data</button>
           </div>
+          @endif
         </div>
 
         <div style="max-height: 100vh; overflow-y:auto;">
@@ -26,21 +28,40 @@
                       <table id="myTable">
                         <thead class="thead">
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
-                                <th>Column 4</th>
-                                <th>Column 5</th>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Nama Dokumen</th>
+                                <th>Dokumen HRA</th>
+                                <th>Editor</th>
+                                @if(Auth::user()->role_id == 3)
+                                <th>Validate</th>
+                                @endif
+                                <th>Validator</th>
+                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
+                                <th>Edit</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="tbody">
-                            <?php for($a =0; $a<50; $a++){?>
+                            <?php foreach($datas as $i=>$data){?>
                             <tr>
-                                <td>Row {{$a}} Data 1</td>
-                                <td>Row {{$a}} Data 2</td>
-                                <td>Row {{$a}} Data 3</td>
-                                <td>Row {{$a}} Data 4</td>
-                                <td>Row {{$a}} Data 5</td>
+                                <td>{{$i+1}}</td>
+                                <td>{{date("d M Y", strtotime($data->tanggal))}}</td>
+                                <td>{{$data->nama_dokumen}}</td>
+                                <td><button class="btn btn-primary" onclick="window.open('{{$data->dokumen_HRA}}','_blank')">Lihat Dokumen</button></td>
+                                <td>{{$data->editor()->name}}</td>
+                                @if(Auth::user()->role_id == 3)
+                                <td>
+                                    @if(!$data->validator()) <form method="POST" action="/smk3/health-risk-assesment/validate">@csrf @endif
+                                        <input type="hidden" name="id" value="{{$data->id}}">
+                                        <button class="btn btn-success" {{$data->validator() ? 'disabled' : 'type="submit"'}}>Validasi</button>
+                                    @if(!$data->validator()) </form> @endif
+                                </td>
+                                @endif
+                                <td>{{$data->validator() ? $data->validator()->name : '-'}}</td>
+                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
+                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="changeModal({{$data->id}})">Edit</button></td>
+                                @endif
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -51,21 +72,65 @@
             </div>
         </div>
 
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <form method="POST" enctype="multipart/form-data">@csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="tanggal" class="form-label">Tanggal</label>
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama_dokumen" class="form-label">Nama Dokumen</label>
+                                <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dokumen_HRA" class="form-label">Dokumen HRA</label>
+                                <input type="file" class="form-control" id="dokumen_HRA" name="dokumen_HRA" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/smk3/health-risk-assesment/edit" method="POST" enctype="multipart/form-data">@csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="idEdit" name="id">
+                            <div class="mb-3">
+                                <label for="tanggalEdit" class="form-label">Tanggal</label>
+                                <input type="date" class="form-control" id="tanggalEdit" name="tanggal">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama_dokumenEdit" class="form-label">Nama Dokumen</label>
+                                <input type="text" class="form-control" id="nama_dokumenEdit" name="nama_dokumen">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dokumen_HRAEdit" class="form-label">Dokumen HRA</label>
+                                <input type="file" class="form-control" id="dokumen_HRAEdit" name="dokumen_HRA">
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-danger" onclick="del()">Delete</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -81,5 +146,35 @@
 
             });
         });
+
+        function changeModal(id){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                const res = JSON.parse(this.responseText);
+                const datee = new Date(res.tanggal);
+                var day = ("0" + datee.getDate()).slice(-2);
+                var month = ("0" + (datee.getMonth() + 1)).slice(-2);
+                var today = datee.getFullYear()+"-"+(month)+"-"+(day);
+                document.getElementById('idEdit').value=res.id;
+                document.getElementById('tanggalEdit').value= today;
+                document.getElementById('nama_dokumenEdit').value=res.nama_dokumen;
+                // document.getElementById('dokumen_HRAEdit').value=res.dokumen_HRA;
+            }
+            xhttp.open("GET", "/api/smk3/health-risk-assesment/get?id="+id, true);
+            xhttp.send();
+        }
+        function del(){
+            $.ajax({
+                url: "/smk3/health-risk-assesment/delete",
+                type:"POST",
+                data:{
+                    id: document.getElementById('idEdit').value,
+                    _token: document.getElementsByTagName("meta")[3].content
+                }
+            });
+            setTimeout(function() {
+                window.location.href = "/smk3/health-risk-assesment";
+            }, 200);
+        }
     </script>
 @endsection
