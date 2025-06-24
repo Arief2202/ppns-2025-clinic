@@ -11,6 +11,7 @@ use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
 use App\Http\Controllers\LaporanAnalisisKecelakaanKerjaController;
 use App\Http\Controllers\LaporanKecelakaanKerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemeriksaanKesehatanBerkalaController;
 use App\Http\Controllers\PemeriksaanKesehatanKhususController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::get('/pasien/get', [PasienController::class, 'getById']);
 Route::get('/user/get', [UserController::class, 'getById']);
 
 Route::get('/sarana-prasarana/informasi-tata-ruang-klinik', [InformasiTataRuangKlinikController::class, 'getById']);

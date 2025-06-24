@@ -162,7 +162,9 @@
                     _token: document.getElementsByTagName("meta")[3].content
                 }
             });
-            window.location.href = "/users";
+            setTimeout(function() {
+                window.location.href = "/users";
+            }, 200);
         }
     </script>
 @endsection

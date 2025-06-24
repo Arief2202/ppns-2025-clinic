@@ -99,6 +99,70 @@
             </ul>
         </li>
 
+        <li class="{{Request::segment(1) == 'manajemen-farmasi'? 'active showMenu' : ''}}">
+            <div class="iocn-link">
+                <a href="/manajemen-farmasi">
+                    <i class='bx bx-collection'></i>
+                    <span class="link_name">Manajemen Farmasi</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Manajemen Farmasi</a></li>
+                <li><a style="{{Request::segment(2) == 'daftar-obat'? 'opacity: 1;' : ''}}" href="/manajemen-farmasi/daftar-obat">Daftar Obat</a></li>
+                <li><a style="{{Request::segment(2) == 'daftar-bmhp'? 'opacity: 1;' : ''}}" href="/manajemen-farmasi/daftar-bmhp">Daftar BMHP</a></li>
+                <li><a style="{{Request::segment(2) == 'pengadaan'? 'opacity: 1;' : ''}}" href="/manajemen-farmasi/pengadaan">Pengadaan</a></li>
+                <li><a style="{{Request::segment(2) == 'penerimaan'? 'opacity: 1;' : ''}}" href="/manajemen-farmasi/penerimaan">Penerimaan</a></li>
+                <li><a style="{{Request::segment(2) == 'pemusnahan'? 'opacity: 1;' : ''}}" href="/manajemen-farmasi/pemusnahan">Pemusnahan</a></li>
+            </ul>
+        </li>
+
+        <li class="{{Request::segment(1) == 'kesehatan-mental'? 'active showMenu' : ''}}">
+            <div class="iocn-link">
+                <a href="/kesehatan-mental">
+                    <i class='bx bx-collection'></i>
+                    <span class="link_name">Kesehatan Mental</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Kesehatan Mental</a></li>
+                <li><a style="{{Request::segment(2) == 'registrasi-kunjungan-psikolog'? 'opacity: 1;' : ''}}" href="/kesehatan-mental/registrasi-kunjungan-psikolog">Registrasi Kunjungan Psikolog</a></li>
+                <li><a style="{{Request::segment(2) == 'program-promotif-kesehatan-mental'? 'opacity: 1;' : ''}}" href="/kesehatan-mental/program-promotif-kesehatan-mental">Program Promotif Kesehatan Mental</a></li>
+                <li><a style="{{Request::segment(2) == 'data-kesehatan-mental'? 'opacity: 1;' : ''}}" href="/kesehatan-mental/data-kesehatan-mental">Data Kesehatan Mental</a></li>
+            </ul>
+        </li>
+
+        <li class="{{Request::segment(1) == 'rekam-medis'? 'active showMenu' : ''}}">
+            <div class="iocn-link">
+                <a href="/rekam-medis">
+                    <i class='bx bx-collection'></i>
+                    <span class="link_name">Rekam Medis</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Rekam Medis</a></li>
+                <li><a style="{{Request::segment(2) == 'registrasi-kunjungan-klinis'? 'opacity: 1;' : ''}}" href="/rekam-medis/registrasi-kunjungan-klinis">Registrasi Kunjungan Klinis</a></li>
+                <li><a style="{{Request::segment(2) == 'rekam-medis-pasien'? 'opacity: 1;' : ''}}" href="/rekam-medis/rekam-medis-pasien">Rekam Medis Pasien</a></li>
+                <li><a style="{{Request::segment(2) == 'statistik-kode-icd'? 'opacity: 1;' : ''}}" href="/rekam-medis/statistik-kode-icd">Statistik Kode ICD</a></li>
+                <li><a style="{{Request::segment(2) == 'distribusi-rekam-medis'? 'opacity: 1;' : ''}}" href="/rekam-medis/distribusi-rekam-medis">Distribusi Rekam Medis</a></li>
+                <li><a style="{{Request::segment(2) == 'analisis-rekam-medis'? 'opacity: 1;' : ''}}" href="/rekam-medis/analisis-rekam-medis">Analisis Rekam Medis</a></li>
+                <li><a style="{{Request::segment(2) == 'penjaminan-mutu'? 'opacity: 1;' : ''}}" href="/rekam-medis/penjaminan-mutu">Penjaminan Mutu</a></li>
+                <li><a style="{{Request::segment(2) == 'klaim-pembiayaan'? 'opacity: 1;' : ''}}" href="/rekam-medis/klaim-pembiayaan">Klaim Pembiayaan</a></li>
+            </ul>
+        </li>
+
+        <li class="{{Request::segment(1) == '/pasien'? 'active' : ''}}">
+            <a href="/pasien">
+                <i class='bx bx-user icon'></i>
+                <span class="link_name">Pasien</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/pasien">pasien</a></li>
+            </ul>
+        </li>
+
         @if(Auth::user()->role_id == 1)
             <li class="{{Request::segment(1) == '/users'? 'active' : ''}}">
                 <a href="/users">

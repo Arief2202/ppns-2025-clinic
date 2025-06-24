@@ -9,10 +9,10 @@
         <div class="row mt-2">
           <div class="col-6">
             <div class="col">
-              <h5 class="card-title">Permintaan Barang</h5>
+              <h5 class="card-title">{{Request::segment(1)}}{{Request::segment(2) ? '/'.Request::segment(2) : ''}}</h5>
             </div>
             <div class="col">
-              <p>Permintaan : 0</p>
+              {{-- <p>Permintaan : 0</p> --}}
             </div>
           </div>
           <div class="col-6 d-flex justify-content-end h-50">
