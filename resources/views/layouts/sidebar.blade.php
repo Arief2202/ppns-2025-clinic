@@ -79,6 +79,7 @@
                 </li>
                 <li><a style="{{Request::segment(2) == 'health-risk-assesment'? 'opacity: 1;' : ''}}" href="/smk3/health-risk-assesment">Health Risk Assesment</a></li>
                 <li><a style="{{Request::segment(2) == 'laporan-pelayanan-dan-pemeriksaan-kesehatan'? 'opacity: 1;' : ''}}" href="/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan">Laporan Pelayanan dan Pemeriksaan Kesehatan</a></li>
+                <li><a style="{{Request::segment(2) == 'skp-tenaga-kesehatan'? 'opacity: 1;' : ''}}" href="/smk3/skp-tenaga-kesehatan">SKP Tenaga Kesehatan</a></li>
             </ul>
         </li>
 

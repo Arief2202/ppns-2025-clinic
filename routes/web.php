@@ -20,6 +20,7 @@ use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
+use App\Http\Controllers\SKPTenagaKesehatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/edit', 'edit');
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/delete', 'delete');
         Route::post('/smk3/laporan-pelayanan-dan-pemeriksaan-kesehatan/validate', 'validate_data');
+    });
+    Route::controller(SKPTenagaKesehatanController::class)->group(function () {
+        Route::get('/smk3/skp-tenaga-kesehatan', 'index');
+        Route::post('/smk3/skp-tenaga-kesehatan', 'create');
+        Route::post('/smk3/skp-tenaga-kesehatan/edit', 'edit');
+        Route::post('/smk3/skp-tenaga-kesehatan/delete', 'delete');
     });
     Route::controller(LaporanKecelakaanKerjaController::class)->group(function () {
         Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', 'index');
