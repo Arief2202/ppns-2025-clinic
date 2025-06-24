@@ -22,6 +22,7 @@ yarn-error.log
 /public/uploads/sarana-prasarana/*/*
 /public/uploads/SMK3/health-risk-assesment/*
 /public/uploads/SMK3/laporan-pelayanan/*
+/public/uploads/SMK3/SKP-tenaga-kesehatan/*
 /public/uploads/SMK3/pemeriksaan-kesehatan/*/*
 !/public/uploads/SMK3/pemeriksaan-kesehatan/*/.gitignore
 !/public/uploads/*/*/.gitignore

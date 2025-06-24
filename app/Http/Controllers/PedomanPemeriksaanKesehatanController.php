@@ -29,7 +29,7 @@ class PedomanPemeriksaanKesehatanController extends Controller
      */
     public function create(Request $request)
     {
-        $destinationPath = 'uploads/SMK3/pemeriksaan-kesehatan-pekerja/pedoman-pemeriksaan-kesehatan';
+        $destinationPath = 'uploads/SMK3/pemeriksaan-kesehatan/pedoman-pemeriksaan-kesehatan';
         $fileName = date("YmdHis").'.'.$request->file->extension();
         $request->file->move(public_path($destinationPath), $fileName);
         $datas = PedomanPemeriksaanKesehatan::first();
