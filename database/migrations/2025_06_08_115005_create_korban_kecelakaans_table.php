@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('korban_kecelakaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('korban_id');
             $table->foreignId('laporan_id');
-            $table->string('nama');
-            $table->string('jenis_kelamin');
-            $table->integer('usia');
-            $table->string('bagian');
+            $table->foreignId('pasien_id');
             $table->string('dampak_kejadian');
             $table->string('tindakan_pertolongan');
             $table->timestamps();

@@ -1,4 +1,4 @@
-Rencana Pemeriksaan Kesehatan
+
 @extends('layouts.main')
 
 @section('body')
@@ -10,7 +10,7 @@ Rencana Pemeriksaan Kesehatan
         <div class="row mt-2 mb-3">
           <div class="col-6">
             <div class="col">
-              <h5 class="card-title">Fasilitas Prasarana</h5>
+              <h5 class="card-title">Rencana Pemeriksaan Kesehatan</h5>
             </div>
           </div>
           @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
