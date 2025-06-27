@@ -14,4 +14,7 @@ class KorbanKecelakaan extends Model
     public function pasien(){
         return Pasien::where('id', $this->pasien_id)->first();
     }
+    public function laporan(){
+        return LaporanKecelakaanKerja::where('id', $this->laporan_id)->first();
+    }
 }
