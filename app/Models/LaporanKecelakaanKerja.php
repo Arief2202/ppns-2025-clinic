@@ -20,4 +20,7 @@ class LaporanKecelakaanKerja extends Model
     public function validator(){
         return User::where('id', $this->validator_id)->first();
     }
+    public function korbans(){
+        return KorbanKecelakaan::where('laporan_id', $this->id)->get();
+    }
 }

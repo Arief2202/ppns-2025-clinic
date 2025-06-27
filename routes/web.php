@@ -155,6 +155,10 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(LaporanKecelakaanKerjaController::class)->group(function () {
         Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', 'index');
+        Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/detail', 'detail');
+        Route::post('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/korban/add', 'addKorban');
+        Route::post('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/korban/delete', 'deleteKorban');
+
         Route::post('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', 'create');
         Route::post('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/edit', 'edit');
         Route::post('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/delete', 'delete');

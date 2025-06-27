@@ -11,4 +11,7 @@ class KorbanKecelakaan extends Model
     protected $guarded = [
         'id',
     ];
+    public function pasien(){
+        return Pasien::where('id', $this->pasien_id)->first();
+    }
 }

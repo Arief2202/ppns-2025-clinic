@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/vendor/bootstrap-5.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/sidebar/style.css">
+    @yield('style2')
 
 
     <!----===== Boxicons CSS ===== -->

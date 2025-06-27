@@ -28,6 +28,8 @@ class PasienController extends Controller
      */
     public function create(Request $request)
     {
+        $pasienNIP = Pasien::where('nip', "=", $request->nip)->first();
+        if($pasienNIP) return redirect('/pasien')->with('errorMessage', "this NIP has registred!");
         Pasien::create([
             'nip' => $request->nip,
             'nama' => $request->nama,
@@ -44,7 +46,7 @@ class PasienController extends Controller
         if(isset($request->nip)){
             if($pasien->nip != $request->nip){
                 $pasienNIP = Pasien::where('nip', "=", $request->nip)->first();
-                if($pasienNIP) return redirect('/users')->with('errorMessage', "this NIP has registred!");
+                if($pasienNIP) return redirect('/pasien')->with('errorMessage', "this NIP has registred!");
             }
             $pasien->nip = $request->nip;
         }
