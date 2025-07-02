@@ -19,6 +19,9 @@ yarn-error.log
 
 
 /public/uploads/pelaporan-kecelakaan-kerja/*/*
+/public/uploads/kesehatan-mental/*/*
+/public/uploads/manajemen-farmasi/*/*
+/public/uploads/rekam-medis/*/*
 /public/uploads/sarana-prasarana/*/*
 /public/uploads/SMK3/health-risk-assesment/*
 /public/uploads/SMK3/laporan-pelayanan/*

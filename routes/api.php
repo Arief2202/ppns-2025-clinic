@@ -11,10 +11,13 @@ use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
 use App\Http\Controllers\LaporanAnalisisKecelakaanKerjaController;
 use App\Http\Controllers\LaporanKecelakaanKerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
+use App\Http\Controllers\ObatBMHPController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemeriksaanKesehatanBerkalaController;
 use App\Http\Controllers\PemeriksaanKesehatanKhususController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
+use App\Http\Controllers\PemusnahanObatController;
+use App\Http\Controllers\PengadaanPenerimaanObatController;
 use App\Http\Controllers\RencanaPemeriksaanKesehatanController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
@@ -56,3 +59,8 @@ Route::get('/smk3/skp-tenaga-kesehatan/get', [SKPTenagaKesehatanController::clas
 
 Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', [LaporanKecelakaanKerjaController::class, 'getById']);
 Route::get('/pelaporan-kecelakaan/laporan-analisis-kecelakaan-kerja', [LaporanAnalisisKecelakaanKerjaController::class, 'getById']);
+
+Route::get('/manajemen-farmasi/daftar-obat-bmhp/get', [ObatBMHPController::class, 'getById']);
+Route::get('/manajemen-farmasi/pengadaan/get', [PengadaanPenerimaanObatController::class, 'getById']);
+Route::get('/manajemen-farmasi/penerimaan/get', [PengadaanPenerimaanObatController::class, 'getById']);
+Route::get('/manajemen-farmasi/pemusnahan/get', [PemusnahanObatController::class, 'getById']);

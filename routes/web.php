@@ -20,7 +20,10 @@ use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
+use App\Http\Controllers\ObatBMHPController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PemusnahanObatController;
+use App\Http\Controllers\PengadaanPenerimaanObatController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
 
 /*
@@ -59,12 +62,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/profile', 'viewProfile')->name('profile_view');
         Route::post('/profile/edit', 'editProfile')->name('profile_edit');
-    });
-    Route::controller(PasienController::class)->group(function () {
-        Route::get('/pasien', 'index');
-        Route::post('/pasien', 'create')->name('pasien_create');
-        Route::post('/pasien/edit', 'edit')->name('pasien_edit');
-        Route::post('/pasien/delete', 'delete')->name('pasien_delete');
     });
 
     Route::controller(InformasiTataRuangKlinikController::class)->group(function () {
@@ -153,6 +150,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/smk3/skp-tenaga-kesehatan/edit', 'edit');
         Route::post('/smk3/skp-tenaga-kesehatan/delete', 'delete');
     });
+
+    Route::controller(PasienController::class)->group(function () {
+        Route::get('/pasien', 'index');
+        Route::post('/pasien', 'create')->name('pasien_create');
+        Route::post('/pasien/edit', 'edit')->name('pasien_edit');
+        Route::post('/pasien/delete', 'delete')->name('pasien_delete');
+    });
+
     Route::controller(LaporanKecelakaanKerjaController::class)->group(function () {
         Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja', 'index');
         Route::get('/pelaporan-kecelakaan/laporan-kecelakaan-kerja/detail', 'detail');
@@ -168,6 +173,46 @@ Route::middleware('auth')->group(function () {
         Route::post('/pelaporan-kecelakaan/laporan-analisis-kecelakaan-kerja', 'create');
         Route::post('/pelaporan-kecelakaan/laporan-analisis-kecelakaan-kerja/edit', 'edit');
         Route::post('/pelaporan-kecelakaan/laporan-analisis-kecelakaan-kerja/delete', 'delete');
+    });
+
+    Route::controller(ObatBMHPController::class)->group(function () {
+        Route::get('/manajemen-farmasi/daftar-obat', 'indexObat');
+        Route::get('/manajemen-farmasi/list-pengadaan', 'indexListPengadaan');
+        Route::get('/manajemen-farmasi/list-pemusnahan', 'indexListPemusnahan');
+        Route::get('/manajemen-farmasi/daftar-bmhp', 'indexBMHP');
+
+        Route::post('/manajemen-farmasi/daftar-obat-bmhp', 'create');
+        Route::post('/manajemen-farmasi/daftar-obat-bmhp/edit', 'edit');
+        Route::post('/manajemen-farmasi/daftar-obat-bmhp/delete', 'delete');
+
+    });
+
+    Route::controller(PengadaanPenerimaanObatController::class)->group(function () {
+        Route::get('/manajemen-farmasi/pengadaan', 'index');
+        Route::get('/manajemen-farmasi/pengadaan/detail', 'detail');
+        Route::post('/manajemen-farmasi/pengadaan/detail/add', 'addItem');
+        Route::post('/manajemen-farmasi/pengadaan/detail/delete', 'deleteItem');
+        Route::post('/manajemen-farmasi/pengadaan', 'create');
+        Route::post('/manajemen-farmasi/pengadaan/edit', 'edit');
+        Route::post('/manajemen-farmasi/pengadaan/delete', 'delete');
+        Route::post('/manajemen-farmasi/pengadaan/validate', 'validate_data_pengadaan');
+
+        Route::get('/manajemen-farmasi/penerimaan', 'indexPenerimaan');
+        Route::post('/manajemen-farmasi/penerimaan', 'createPenerimaan');
+        Route::post('/manajemen-farmasi/penerimaan/cancel', 'cancelPenerimaan');
+        Route::post('/manajemen-farmasi/penerimaan/validate', 'validate_data_penerimaan');
+    });
+
+    Route::controller(PemusnahanObatController::class)->group(function () {
+        Route::get('/manajemen-farmasi/pemusnahan', 'index');
+        Route::get('/manajemen-farmasi/pemusnahan/detail', 'detail');
+        Route::post('/manajemen-farmasi/pemusnahan/detail/add', 'addItem');
+        Route::post('/manajemen-farmasi/pengadaan/detail/update', 'editItem');
+
+        Route::post('/manajemen-farmasi/pemusnahan', 'create');
+        Route::post('/manajemen-farmasi/pemusnahan/edit', 'edit');
+        Route::post('/manajemen-farmasi/pemusnahan/delete', 'delete');
+        Route::post('/manajemen-farmasi/pemusnahan/validate', 'validate_data');
     });
 
     Route::post('/changeSideBarState', function(Request $request) {
@@ -286,12 +331,6 @@ Route::middleware('auth')->group(function () { //FOR MENU PAGE
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () { return view('profile'); });
-
-    Route::get('/manajemen-farmasi/daftar-obat', function () { return view('test'); });
-    Route::get('/manajemen-farmasi/daftar-bmhp', function () { return view('test'); });
-    Route::get('/manajemen-farmasi/pengadaan', function () { return view('test'); });
-    Route::get('/manajemen-farmasi/penerimaan', function () { return view('test'); });
-    Route::get('/manajemen-farmasi/pemusnahan', function () { return view('test'); });
 
     Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog', function () { return view('test'); });
     Route::get('/kesehatan-mental/program-promotif-kesehatan-mental', function () { return view('test'); });
