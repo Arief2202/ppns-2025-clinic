@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataKesehatanMentalController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,12 @@ use App\Http\Controllers\ObatBMHPController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemusnahanObatController;
 use App\Http\Controllers\PengadaanPenerimaanObatController;
+use App\Http\Controllers\ProgramPromotifKesehatanMentalController;
+use App\Http\Controllers\RegistrasiKunjunganPsikologController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
+use App\Models\DataKesehatanMental;
+use App\Models\ProgramPromotifKesehatanMental;
+use App\Models\RegistrasiKunjunganPsikolog;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +221,31 @@ Route::middleware('auth')->group(function () {
         Route::post('/manajemen-farmasi/pemusnahan/validate', 'validate_data');
     });
 
+    Route::controller(RegistrasiKunjunganPsikologController::class)->group(function () {
+        Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog', 'index');
+        Route::post('/kesehatan-mental/registrasi-kunjungan-psikolog', 'create');
+        Route::post('/kesehatan-mental/registrasi-kunjungan-psikolog/delete', 'delete');
+        Route::post('/kesehatan-mental/registrasi-kunjungan-psikolog/edit', 'edit');
+
+        Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog/detail', 'detail');
+        Route::post('/kesehatan-mental/registrasi-kunjungan-psikolog/detail/create', 'addItem');
+        Route::post('/kesehatan-mental/rekam-medis-psikolog/delete', 'deleteItem');
+    });
+
+    Route::controller(ProgramPromotifKesehatanMentalController::class)->group(function () {
+        Route::get('/kesehatan-mental/program-promotif-kesehatan-mental', 'index');
+        Route::post('/kesehatan-mental/program-promotif-kesehatan-mental', 'create');
+        Route::post('/kesehatan-mental/program-promotif-kesehatan-mental/edit', 'edit');
+        Route::post('/kesehatan-mental/program-promotif-kesehatan-mental/delete', 'delete');
+    });
+    Route::controller(DataKesehatanMentalController::class)->group(function () {
+        Route::get('/kesehatan-mental/data-kesehatan-mental', 'index');
+        Route::post('/kesehatan-mental/data-kesehatan-mental', 'create');
+        Route::post('/kesehatan-mental/data-kesehatan-mental/edit', 'edit');
+        Route::post('/kesehatan-mental/data-kesehatan-mental/delete', 'delete');
+        Route::post('/kesehatan-mental/data-kesehatan-mental/validate', 'validate_data');
+    });
+
     Route::post('/changeSideBarState', function(Request $request) {
         $user = User::where('id', Auth::user()->id)->first();
         $user->openSidebar = $request->sideBarState;
@@ -331,10 +362,6 @@ Route::middleware('auth')->group(function () { //FOR MENU PAGE
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () { return view('profile'); });
-
-    Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog', function () { return view('test'); });
-    Route::get('/kesehatan-mental/program-promotif-kesehatan-mental', function () { return view('test'); });
-    Route::get('/kesehatan-mental/data-kesehatan-mental', function () { return view('test'); });
 
     Route::get('/rekam-medis/registrasi-kunjungan-klinis', function () { return view('test'); });
     Route::get('/rekam-medis/rekam-medis-pasien', function () { return view('test'); });

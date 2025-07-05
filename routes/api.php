@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataKesehatanMentalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\PemeriksaanKesehatanKhususController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
 use App\Http\Controllers\PemusnahanObatController;
 use App\Http\Controllers\PengadaanPenerimaanObatController;
+use App\Http\Controllers\ProgramPromotifKesehatanMentalController;
+use App\Http\Controllers\RegistrasiKunjunganPsikologController;
 use App\Http\Controllers\RencanaPemeriksaanKesehatanController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
@@ -64,3 +67,7 @@ Route::get('/manajemen-farmasi/daftar-obat-bmhp/get', [ObatBMHPController::class
 Route::get('/manajemen-farmasi/pengadaan/get', [PengadaanPenerimaanObatController::class, 'getById']);
 Route::get('/manajemen-farmasi/penerimaan/get', [PengadaanPenerimaanObatController::class, 'getById']);
 Route::get('/manajemen-farmasi/pemusnahan/get', [PemusnahanObatController::class, 'getById']);
+
+Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog/get', [RegistrasiKunjunganPsikologController::class, 'getById']);
+Route::get('/kesehatan-mental/program-promotif-kesehatan-mental/get', [ProgramPromotifKesehatanMentalController::class, 'getById']);
+Route::get('/kesehatan-mental/data-kesehatan-mental/get', [DataKesehatanMentalController::class, 'getById']);

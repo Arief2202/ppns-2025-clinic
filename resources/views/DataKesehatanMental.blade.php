@@ -1,0 +1,179 @@
+
+@extends('layouts.main')
+
+@section('body')
+    @include('layouts.cardOpen')
+        @if(isset($errorMessage))
+            <div class="alert-danger mt-1 p-2">{{ $errorMessage }}</div>
+        @endif
+
+        <div class="row mt-2 mb-3">
+          <div class="col-6">
+            <div class="col">
+              <h5 class="card-title">Data Kesehatan Mental</h5>
+            </div>
+          </div>
+          @if(Auth::user()->role_id == 5)
+          <div class="col-6 d-flex justify-content-end h-50">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Data</button>
+          </div>
+          @endif
+        </div>
+
+        <div style="max-height: 100vh; overflow-y:auto;">
+            <div class="card-text me-3">
+                  <div style="max-height: 68vh; overflow-y:auto;">
+                    <div class="card-text me-3">
+
+                      <table id="myTable">
+                        <thead class="thead">
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal Pendataan</th>
+                                <th>Nama Dokumen</th>
+                                <th>Dokumen Data Kesehatan Mental</th>
+                                <th>Editor</th>
+                                @if(Auth::user()->role_id == 1)
+                                <th>Validate</th>
+                                @endif
+                                <th>Validator</th>
+                                @if(Auth::user()->role_id == 5)
+                                <th>Edit</th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <?php foreach($datas as $i=>$data){?>
+                            <tr>
+                                <td>{{$i+1}}</td>
+                                <td>{{date("d M Y", strtotime($data->tanggal_pendataan))}}</td>
+                                <td>{{$data->nama_dokumen}}</td>
+                                <td><button class="btn btn-primary" onclick="window.open('{{$data->dokumen_kesehatan_mental}}','_blank')">Lihat Dokumen</button></td>
+                                <td>{{$data->editor()->name}}</td>
+                                @if(Auth::user()->role_id == 1)
+                                <td>
+                                    @if(!$data->validator()) <form method="POST" action="/kesehatan-mental/data-kesehatan-mental/validate">@csrf @endif
+                                        <input type="hidden" name="id" value="{{$data->id}}">
+                                        <button class="btn btn-success" {{$data->validator() ? 'disabled' : 'type="submit"'}}>Validasi</button>
+                                    @if(!$data->validator()) </form> @endif
+                                </td>
+                                @endif
+                                <td>{{$data->validator() ? $data->validator()->name : '-'}}</td>
+                                @if(Auth::user()->role_id == 5)
+                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="changeModal({{$data->id}})">Edit</button></td>
+                                @endif
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" enctype="multipart/form-data">@csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="tanggal_pendataan" class="form-label">Tanggal Pendataan</label>
+                                <input type="date" class="form-control" id="tanggal_pendataan" name="tanggal_pendataan" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama_dokumen" class="form-label">Nama Dokumen</label>
+                                <input type="text" class="form-control" id="nama_dokumen" name="nama_dokumen" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dokumen_kesehatan_mental" class="form-label">Dokumen Kesehatan Mental</label>
+                                <input type="file" class="form-control" id="dokumen_kesehatan_mental" name="dokumen_kesehatan_mental" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/kesehatan-mental/data-kesehatan-mental/edit" method="POST" enctype="multipart/form-data">@csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="idEdit" name="id">
+                            <div class="mb-3">
+                                <label for="tanggal_pendataanEdit" class="form-label">Tanggal Pendataan</label>
+                                <input type="date" class="form-control" id="tanggal_pendataanEdit" name="tanggal_pendataan">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama_dokumenEdit" class="form-label">Nama Dokumen</label>
+                                <input type="text" class="form-control" id="nama_dokumenEdit" name="nama_dokumen">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dokumen_kesehatan_mentalEdit" class="form-label">Dokumen Kesehatan Mental</label>
+                                <input type="file" class="form-control" id="dokumen_kesehatan_mentalEdit" name="dokumen_kesehatan_mental">
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-danger" onclick="del()">Delete</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    @include('layouts.cardClose')
+@endsection
+
+
+@section('script')
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+
+            });
+        });
+
+        function changeModal(id){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                const res = JSON.parse(this.responseText);
+                const datee = new Date(res.tanggal_pendataan);
+                var day = ("0" + datee.getDate()).slice(-2);
+                var month = ("0" + (datee.getMonth() + 1)).slice(-2);
+                var today = datee.getFullYear()+"-"+(month)+"-"+(day);
+                document.getElementById('idEdit').value=res.id;
+                document.getElementById('tanggal_pendataanEdit').value = today;
+                document.getElementById('nama_dokumenEdit').value=res.nama_dokumen;
+            }
+            xhttp.open("GET", "/api/kesehatan-mental/data-kesehatan-mental/get?id="+id, true);
+            xhttp.send();
+        }
+        function del(){
+            $.ajax({
+                url: "/kesehatan-mental/data-kesehatan-mental/delete",
+                type:"POST",
+                data:{
+                    id: document.getElementById('idEdit').value,
+                    _token: document.getElementsByTagName("meta")[3].content
+                }
+            });
+            setTimeout(function() {
+                window.location.href = "/kesehatan-mental/data-kesehatan-mental";
+            }, 200);
+        }
+    </script>
+@endsection
