@@ -40,7 +40,7 @@ class RegistrasiKunjunganPsikologController extends Controller
                 // 'items' => $items,
             ]);
         }
-        return redirect('/manajemen-farmasi/pengadaan');
+        return redirect('/kesehatan-mental/registrasi-kunjungan-psikolog');
     }
 
     public function addItem(Request $request){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreObatBMHPRequest;
 use App\Http\Requests\UpdateObatBMHPRequest;
 use App\Models\DetailPemusnahanObat;
+use App\Models\DetailPenggunaanObatBMHP;
 use App\Models\ItemPengadaanPenerimaan;
 use App\Models\ObatBMHP;
 use Illuminate\Http\Request;
@@ -86,6 +87,7 @@ class ObatBMHPController extends Controller
         if($ObatBMHP){
             $kategori = $ObatBMHP->kategori;
             foreach(ItemPengadaanPenerimaan::where('obat_bmhp_id', $ObatBMHP->id)->get() as $item) $item->delete();
+            foreach(DetailPenggunaanObatBMHP::where('obat_bmhp_id', $ObatBMHP->id)->get() as $item) $item->delete();
             $ObatBMHP->delete();
         }
         if($kategori == "Obat") return redirect('/manajemen-farmasi/daftar-obat');

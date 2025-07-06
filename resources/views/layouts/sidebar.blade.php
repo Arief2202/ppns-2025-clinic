@@ -149,7 +149,7 @@
                 <li><a style="{{Request::segment(2) == 'rekam-medis-pasien'? 'opacity: 1;' : ''}}" href="/rekam-medis/rekam-medis-pasien">Rekam Medis Pasien</a></li>
                 <li><a style="{{Request::segment(2) == 'statistik-kode-icd'? 'opacity: 1;' : ''}}" href="/rekam-medis/statistik-kode-icd">Statistik Kode ICD</a></li>
                 <li><a style="{{Request::segment(2) == 'distribusi-rekam-medis'? 'opacity: 1;' : ''}}" href="/rekam-medis/distribusi-rekam-medis">Distribusi Rekam Medis</a></li>
-                <li><a style="{{Request::segment(2) == 'analisis-rekam-medis'? 'opacity: 1;' : ''}}" href="/rekam-medis/analisis-rekam-medis">Analisis Rekam Medis</a></li>
+                <li><a style="{{Request::segment(2) == 'analisis-data-rekam-medis'? 'opacity: 1;' : ''}}" href="/rekam-medis/analisis-data-rekam-medis">Analisis Rekam Medis</a></li>
                 <li><a style="{{Request::segment(2) == 'penjaminan-mutu'? 'opacity: 1;' : ''}}" href="/rekam-medis/penjaminan-mutu">Penjaminan Mutu</a></li>
                 <li><a style="{{Request::segment(2) == 'klaim-pembiayaan'? 'opacity: 1;' : ''}}" href="/rekam-medis/klaim-pembiayaan">Klaim Pembiayaan</a></li>
             </ul>

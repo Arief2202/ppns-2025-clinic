@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AnalisisDataRekamMedisController;
 use App\Http\Controllers\DataKesehatanMentalController;
+use App\Http\Controllers\DistribusiRekamMedisController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,7 @@ use App\Http\Controllers\PemeriksaanKesehatanBerkalaController;
 use App\Http\Controllers\RencanaPemeriksaanKesehatanController;
 use App\Http\Controllers\LaporanAnalisisKecelakaanKerjaController;
 use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
+use App\Http\Controllers\KlaimPembiayaanController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
@@ -25,10 +28,16 @@ use App\Http\Controllers\ObatBMHPController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemusnahanObatController;
 use App\Http\Controllers\PengadaanPenerimaanObatController;
+use App\Http\Controllers\PenjaminanMutuController;
 use App\Http\Controllers\ProgramPromotifKesehatanMentalController;
+use App\Http\Controllers\RegistrasiKunjunganKlinisController;
 use App\Http\Controllers\RegistrasiKunjunganPsikologController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
+use App\Models\AnalisisDataRekamMedis;
 use App\Models\DataKesehatanMental;
+use App\Models\DistribusiRekamMedis;
+use App\Models\KlaimPembiayaan;
+use App\Models\PenjaminanMutu;
 use App\Models\ProgramPromotifKesehatanMental;
 use App\Models\RegistrasiKunjunganPsikolog;
 
@@ -246,6 +255,57 @@ Route::middleware('auth')->group(function () {
         Route::post('/kesehatan-mental/data-kesehatan-mental/validate', 'validate_data');
     });
 
+    Route::controller(RegistrasiKunjunganKlinisController::class)->group(function () {
+        Route::get('/rekam-medis/registrasi-kunjungan-klinis', 'index');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis', 'create');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis/delete', 'delete');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis/edit', 'edit');
+
+        Route::get('/rekam-medis/registrasi-kunjungan-klinis/detail', 'detail');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis/detail/create', 'addItem');
+        Route::post('/kesehatan-mental/rekam-medis-klinis/delete', 'deleteItem');
+
+        Route::get('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp', 'detailObatBMHP');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/create', 'addItemObatBMHP');
+        Route::post('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/delete', 'deleteItemObatBMHP');
+    });
+
+    Route::controller(DistribusiRekamMedisController::class)->group(function () {
+        Route::get('/rekam-medis/distribusi-rekam-medis', 'index');
+        Route::post('/rekam-medis/distribusi-rekam-medis', 'create');
+        Route::post('/rekam-medis/distribusi-rekam-medis/edit', 'edit');
+        Route::post('/rekam-medis/distribusi-rekam-medis/delete', 'delete');
+    });
+
+    Route::controller(AnalisisDataRekamMedisController::class)->group(function () {
+        Route::get('/rekam-medis/analisis-data-rekam-medis', 'index');
+        Route::post('/rekam-medis/analisis-data-rekam-medis', 'create');
+        Route::post('/rekam-medis/analisis-data-rekam-medis/edit', 'edit');
+        Route::post('/rekam-medis/analisis-data-rekam-medis/delete', 'delete');
+        Route::post('/rekam-medis/analisis-data-rekam-medis/validate', 'validate_data');
+    });
+
+    Route::controller(PenjaminanMutuController::class)->group(function () {
+        Route::get('/rekam-medis/penjaminan-mutu', 'index');
+        Route::post('/rekam-medis/penjaminan-mutu', 'create');
+        Route::post('/rekam-medis/penjaminan-mutu/edit', 'edit');
+        Route::post('/rekam-medis/penjaminan-mutu/delete', 'delete');
+        Route::post('/rekam-medis/penjaminan-mutu/validate', 'validate_data');
+    });
+
+    Route::controller(KlaimPembiayaanController::class)->group(function () {
+        Route::get('/rekam-medis/klaim-pembiayaan', 'index');
+        Route::post('/rekam-medis/klaim-pembiayaan', 'create');
+        Route::post('/rekam-medis/klaim-pembiayaan/edit', 'edit');
+        Route::post('/rekam-medis/klaim-pembiayaan/delete', 'delete');
+    });
+
+    Route::get('/rekam-medis/rekam-medis-pasien', function () { return view('test'); });
+    Route::get('/rekam-medis/statistik-kode-icd', function () { return view('test'); });
+
+
+
+
     Route::post('/changeSideBarState', function(Request $request) {
         $user = User::where('id', Auth::user()->id)->first();
         $user->openSidebar = $request->sideBarState;
@@ -362,15 +422,6 @@ Route::middleware('auth')->group(function () { //FOR MENU PAGE
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () { return view('profile'); });
-
-    Route::get('/rekam-medis/registrasi-kunjungan-klinis', function () { return view('test'); });
-    Route::get('/rekam-medis/rekam-medis-pasien', function () { return view('test'); });
-    Route::get('/rekam-medis/statistik-kode-icd', function () { return view('test'); });
-    Route::get('/rekam-medis/distribusi-rekam-medis', function () { return view('test'); });
-    Route::get('/rekam-medis/analisis-rekam-medis', function () { return view('test'); });
-    Route::get('/rekam-medis/penjaminan-mutu', function () { return view('test'); });
-    Route::get('/rekam-medis/klaim-pembiayaan', function () { return view('test'); });
-
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -26,6 +26,7 @@ class ObatBMHP extends Model
                 }
             }
         }
+        foreach(DetailPenggunaanObatBMHP::where('obat_bmhp_id', $this->id)->get() as $item) $count -= $item->jumlah;
         return $count;
     }
     public function hasExpired(){

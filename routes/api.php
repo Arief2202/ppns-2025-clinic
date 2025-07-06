@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AnalisisDataRekamMedisController;
 use App\Http\Controllers\DataKesehatanMentalController;
+use App\Http\Controllers\DistribusiRekamMedisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\HealthRiskAssesmentController;
 use App\Http\Controllers\InformasiTataRuangKlinikController;
 use App\Http\Controllers\InventarisPeralatanController;
 use App\Http\Controllers\IzinPendirianDanOperasionalKlinikController;
+use App\Http\Controllers\KlaimPembiayaanController;
 use App\Http\Controllers\LaporanAnalisisKecelakaanKerjaController;
 use App\Http\Controllers\LaporanKecelakaanKerjaController;
 use App\Http\Controllers\LaporanPelayananDanPemeriksaanKesehatanController;
@@ -19,12 +22,19 @@ use App\Http\Controllers\PemeriksaanKesehatanKhususController;
 use App\Http\Controllers\PemeriksaanKesehatanSebelumBerkerjaController;
 use App\Http\Controllers\PemusnahanObatController;
 use App\Http\Controllers\PengadaanPenerimaanObatController;
+use App\Http\Controllers\PenjaminanMutuController;
 use App\Http\Controllers\ProgramPromotifKesehatanMentalController;
+use App\Http\Controllers\RegistrasiKunjunganKlinisController;
 use App\Http\Controllers\RegistrasiKunjunganPsikologController;
 use App\Http\Controllers\RencanaPemeriksaanKesehatanController;
 use App\Http\Controllers\SKPTenagaKesehatanController;
 use App\Http\Controllers\StandardOperasionalProsedurKlinikController;
+use App\Models\AnalisisDataRekamMedis;
+use App\Models\DistribusiRekamMedis;
+use App\Models\KlaimPembiayaan;
 use App\Models\PedomanPemeriksaanKesehatan;
+use App\Models\PenjaminanMutu;
+use App\Models\RegistrasiKunjunganKlinis;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +81,10 @@ Route::get('/manajemen-farmasi/pemusnahan/get', [PemusnahanObatController::class
 Route::get('/kesehatan-mental/registrasi-kunjungan-psikolog/get', [RegistrasiKunjunganPsikologController::class, 'getById']);
 Route::get('/kesehatan-mental/program-promotif-kesehatan-mental/get', [ProgramPromotifKesehatanMentalController::class, 'getById']);
 Route::get('/kesehatan-mental/data-kesehatan-mental/get', [DataKesehatanMentalController::class, 'getById']);
+
+Route::get('/rekam-medis/registrasi-kunjungan-klinis/get', [RegistrasiKunjunganKlinisController::class, 'getById']);
+Route::get('/rekam-medis/distribusi-rekam-medis/get', [DistribusiRekamMedisController::class, 'getById']);
+Route::get('/rekam-medis/analisis-data-rekam-medis/get', [AnalisisDataRekamMedisController::class, 'getById']);
+Route::get('/rekam-medis/penjaminan-mutu/get', [PenjaminanMutuController::class, 'getById']);
+Route::get('/rekam-medis/klaim-pembiayaan/get', [KlaimPembiayaanController::class, 'getById']);
+Route::get('/rekam-medis/registrasi-kunjungan-klinis/get', [RegistrasiKunjunganKlinisController::class, 'getById']);
