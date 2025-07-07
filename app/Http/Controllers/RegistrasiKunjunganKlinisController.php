@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Pasien;
 use App\Models\User;
 use App\Models\PemusnahanObat;
+use App\Models\RegistrasiKunjunganPsikolog;
 use App\Models\RekamMedisKlinis;
 use Illuminate\Support\Facades\File;
 
@@ -74,6 +75,7 @@ class RegistrasiKunjunganKlinisController extends Controller
     public function detailObatBMHP(Request $request)
     {
         $data = RekamMedisKlinis::where('id', "=", $request->id)->first();
+
         if($data){
             return view('RegistrasiKunjunganklinisDetailObatBMHP', [
                 'data' => $data,
@@ -185,5 +187,44 @@ class RegistrasiKunjunganKlinisController extends Controller
         $user = RegistrasiKunjunganKlinis::where('id', "=", $request->id)->first();
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($user);die;
+    }
+
+    public function statistikKodeIcd(Request $request)
+    {
+        $rekamMedisKlinis = RekamMedisKlinis::get();
+        $kode_icds = $rekamMedisKlinis->unique('kode_icd')->pluck('kode_icd');
+        return view('StatistikKodeICD', [
+            'datas' => $rekamMedisKlinis,
+            'kode_icds' => $kode_icds,
+        ]);
+    }
+
+    public function rekamMedisPasien(Request $request)
+    {
+        return view('RekamMedisPasien', [
+            'pasiens' => Pasien::get(),
+        ]);
+    }
+    public function rekamMedisKlinisPasien(Request $request)
+    {
+        $pasien = Pasien::where('id', $request->id)->first();
+        if($pasien){
+            $datas = RegistrasiKunjunganKlinis::where('pasien_id', $pasien->id)->get();
+            return view('RekamMedisKlinisPasien', [
+                'datas' => $datas,
+                'pasien' => $pasien,
+            ]);
+        }
+    }
+    public function rekamMedisPsikologPasien(Request $request)
+    {
+        $pasien = Pasien::where('id', $request->id)->first();
+        if($pasien){
+            $datas = RegistrasiKunjunganPsikolog::where('pasien_id', $pasien->id)->get();
+            return view('RekamMedisPsikologPasien', [
+                'datas' => $datas,
+                'pasien' => $pasien,
+            ]);
+        }
     }
 }

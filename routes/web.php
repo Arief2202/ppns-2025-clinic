@@ -268,6 +268,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp', 'detailObatBMHP');
         Route::post('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/create', 'addItemObatBMHP');
         Route::post('/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/delete', 'deleteItemObatBMHP');
+        Route::get('/rekam-medis/statistik-kode-icd', 'statistikKodeIcd');
+
+
+        Route::get('/rekam-medis/rekam-medis-pasien', 'rekamMedisPasien');
+        Route::get('/rekam-medis/rekam-medis-pasien/klinis', 'rekamMedisKlinisPasien');
+        Route::get('/rekam-medis/rekam-medis-pasien/psikolog', 'rekamMedisPsikologPasien');
     });
 
     Route::controller(DistribusiRekamMedisController::class)->group(function () {
@@ -300,9 +306,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/rekam-medis/klaim-pembiayaan/delete', 'delete');
     });
 
-    Route::get('/rekam-medis/rekam-medis-pasien', function () { return view('test'); });
-    Route::get('/rekam-medis/statistik-kode-icd', function () { return view('test'); });
-
 
 
 
@@ -329,6 +332,8 @@ Route::middleware('auth')->group(function () { //FOR MENU PAGE
                 ['/pelaporan-kecelakaan', 'Pelaporan Kecelakaan'],
                 ['/smk3', 'SMK 3'],
                 ['/rekam-medis', 'Rekam Medis'],
+                ['/pasien', 'Pasien'],
+                ['/users', 'Users'],
             ]
         ]);
     })->name('dashboard');
