@@ -155,7 +155,7 @@
             </ul>
         </li>
 
-        <li class="{{Request::segment(1) == '/pasien'? 'active' : ''}}">
+        <li class="{{Request::segment(1) == 'pasien'? 'active' : ''}}">
             <a href="/pasien">
                 <i class='bx bx-user icon'></i>
                 <span class="link_name">Pasien</span>
@@ -166,7 +166,7 @@
         </li>
 
         @if(Auth::user()->role_id == 1)
-            <li class="{{Request::segment(1) == '/users'? 'active' : ''}}">
+            <li class="{{Request::segment(1) == 'users'? 'active' : ''}}">
                 <a href="/users">
                     <i class='bx bx-user icon'></i>
                     <span class="link_name">Users</span>

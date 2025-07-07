@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePasienRequest;
 use App\Http\Requests\UpdatePasienRequest;
+use App\Models\KorbanKecelakaan;
 use App\Models\Pasien;
+use App\Models\RegistrasiKunjunganKlinis;
+use App\Models\RegistrasiKunjunganPsikolog;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -61,7 +64,12 @@ class PasienController extends Controller
     public function delete(Request $request)
     {
         $pasien = Pasien::where('id', "=", $request->id)->first();
-        if($pasien) $pasien->delete();
+        if($pasien){
+            foreach(RegistrasiKunjunganPsikolog::where('pasien_id', $pasien->id)->get() as $dt) $dt->delete();
+            foreach(RegistrasiKunjunganKlinis::where('pasien_id', $pasien->id)->get() as $dt) $dt->delete();
+            foreach(KorbanKecelakaan::where('pasien_id', $pasien->id)->get() as $dt) $dt->delete();
+            $pasien->delete();
+        }
         return redirect('/pasien');
     }
     public function getById(Request $request)

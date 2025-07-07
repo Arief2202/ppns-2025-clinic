@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\KorbanKecelakaan;
+use App\Models\RegistrasiKunjunganKlinis;
+use App\Models\RegistrasiKunjunganPsikolog;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -56,7 +59,12 @@ class UserController extends Controller
     public function delete(Request $request)
     {
         $user = User::where('id', "=", $request->id)->first();
-        if($user) $user->delete();
+        if($user){
+            foreach(RegistrasiKunjunganPsikolog::where('pasien_id', $user->id)->get() as $dt) $dt->delete();
+            foreach(RegistrasiKunjunganKlinis::where('pasien_id', $user->id)->get() as $dt) $dt->delete();
+            foreach(KorbanKecelakaan::where('pasien_id', $user->id)->get() as $dt) $dt->delete();
+            $user->delete();
+        }
         return redirect('/users');
     }
     public function getById(Request $request)

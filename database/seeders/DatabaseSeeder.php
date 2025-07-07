@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ObatBMHP;
 use App\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(50)->create();
+        \App\Models\Pasien::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -75,5 +77,29 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'Psikolog']);
         Role::create(['name' => 'Apoteker']);
         Role::create(['name' => 'Petugas Rekam Medis']);
+
+        ObatBMHP::create(['nama' => 'Hydrocolevotic acid','kategori' => 'Obat','satuan' => 'liter','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Alpha-Cytocetix','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Paralevofen','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Metattropin','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Hydrolaxipramine','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Colaxacetasyllic acid','kategori' => 'Obat','satuan' => 'liter','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Peproxoproxolix','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Dydradra','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Cytolevoge Hydronol','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Neuronyllax','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Methasalimorphivaptan','kategori' => 'Obat','satuan' => 'mg','tempat_penyimpanan' => 'Apotek', 'editor_id' => '51']);
+
+        ObatBMHP::create(['nama' => 'Jarum suntik','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Kasa','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Masker','kategori' => 'BMHP','satuan' => 'box','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Sarung tangan medis','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Alat penampung urine','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Selang oksigen','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Benang operasi','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Blood transfusion set','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Reagen kimia','kategori' => 'BMHP','satuan' => 'liter','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Tabung reaksi','kategori' => 'BMHP','satuan' => 'liter','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
+        ObatBMHP::create(['nama' => 'Slide dan cover slip','kategori' => 'BMHP','satuan' => 'pcs','tempat_penyimpanan' => 'Gudang', 'editor_id' => '51']);
     }
 }

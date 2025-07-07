@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('pengadaan_id');
             $table->foreignId('obat_bmhp_id');
             $table->string('jumlah');
-            $table->timestamp('tanggal_kadaluarsa');
-            $table->string('status');
+            $table->timestamp('tanggal_kadaluarsa')->nullable();
             $table->timestamps();
         });
     }
