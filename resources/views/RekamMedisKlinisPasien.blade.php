@@ -7,8 +7,11 @@
         @endif
 
         <div class="row mt-2">
-        <div class="col">
+        <div class="col-6">
             <h5 class="card-title">Rekam Medis Klinis {{$pasien->nama}} (NIP. {{$pasien->nip}})</h5>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-warning ms-3" href="/{{ Request::path() }}/export">Export Data</a>
         </div>
         </div>
 

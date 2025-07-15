@@ -13,7 +13,8 @@
             </div>
           </div>
           <div class="col-6 d-flex justify-content-end h-50">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Data</button>
+            <a class="btn btn-warning ms-3" href="/{{ Request::path() }}/export">Export Data</a>
+            <button class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Data</button>
           </div>
         </div>
 

@@ -26,4 +26,11 @@ class PengadaanPenerimaanObat extends Model
     public function items(){
         return ItemPengadaanPenerimaan::where('pengadaan_id', $this->id)->get();
     }
+    public function checkExpired(){
+        $found = false;
+        foreach($this->items() as $item){
+            if($item->tanggal_kadaluarsa == null)$found = true;
+        }
+        return $found;
+    }
 }

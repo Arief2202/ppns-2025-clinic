@@ -6,12 +6,19 @@ use App\Models\IzinPendirianDanOperasionalKlinik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\IzinPendirianExport;
+
 
 class IzinPendirianDanOperasionalKlinikController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    public function export(){
+		return Excel::download(new IzinPendirianExport, 'IzinPendirianDanOperasionalKlinik.xlsx');
+    }
     public function index()
     {
         return view('IzinPendirianDanOperasionalKlinik', [

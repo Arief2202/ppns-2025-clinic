@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/sarana-prasarana/fasilitas-prasarana/edit', 'edit');
         Route::post('/sarana-prasarana/fasilitas-prasarana/delete', 'delete');
         Route::post('/sarana-prasarana/fasilitas-prasarana/validate', 'validate_data');
+        Route::get('/sarana-prasarana/fasilitas-prasarana/export', 'export');
     });
     Route::controller(InventarisPeralatanController::class)->group(function () {
         Route::get('/sarana-prasarana/inventaris-peralatan', 'index');
@@ -216,6 +217,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/manajemen-farmasi/penerimaan', 'createPenerimaan');
         Route::post('/manajemen-farmasi/penerimaan/cancel', 'cancelPenerimaan');
         Route::post('/manajemen-farmasi/penerimaan/validate', 'validate_data_penerimaan');
+        Route::get('/manajemen-farmasi/penerimaan/detail', 'detailPenerimaan');
+        Route::post('/manajemen-farmasi/penerimaan/detail', 'editPenerimaan');
     });
 
     Route::controller(PemusnahanObatController::class)->group(function () {
@@ -253,6 +256,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/kesehatan-mental/data-kesehatan-mental/edit', 'edit');
         Route::post('/kesehatan-mental/data-kesehatan-mental/delete', 'delete');
         Route::post('/kesehatan-mental/data-kesehatan-mental/validate', 'validate_data');
+        Route::post('/kesehatan-mental/data-kesehatan-mental/survey', 'updateSurvey');
     });
 
     Route::controller(RegistrasiKunjunganKlinisController::class)->group(function () {

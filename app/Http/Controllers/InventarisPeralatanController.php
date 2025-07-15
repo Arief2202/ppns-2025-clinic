@@ -6,12 +6,17 @@ use App\Models\InventarisPeralatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\InventarisPeralatanExport;
 
 class InventarisPeralatanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function export(){
+		return Excel::download(new InventarisPeralatanExport, 'Inventaris Peralatan.xlsx');
+    }
     public function index()
     {
         return view('InventarisPeralatan', [

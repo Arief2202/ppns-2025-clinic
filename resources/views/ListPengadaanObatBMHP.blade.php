@@ -12,6 +12,9 @@
               <h5 class="card-title">{{$title}}</h5>
             </div>
           </div>
+          <div class="col-6 d-flex justify-content-end h-50">
+            <a class="btn btn-warning ms-3" href="/{{Request::path()}}/export">Export Data</a>
+          </div>
         </div>
 
         <div style="max-height: 100vh; overflow-y:auto;">
@@ -54,7 +57,7 @@
                                     </button>
                                 </td>
                                 <td>{{$data->status}}</td>
-                                <td><a class="btn btn-primary" href="http://clinic.ppns.seonsu.com/manajemen-farmasi/pengadaan/detail?id={{$data->pengadaan_id}}">Lihat Pengadaan</a></td>
+                                <td><a class="btn btn-primary" href="http://clinic.ppns.seonsu.com/manajemen-farmasi/penerimaan/detail?id={{$data->pengadaan_id}}">Lihat Pengadaan</a></td>
                             </tr>
                             <?php } ?>
                         </tbody>

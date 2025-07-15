@@ -45,6 +45,33 @@ class PengadaanPenerimaanObatController extends Controller
         return redirect('/manajemen-farmasi/pengadaan');
     }
 
+    public function detailPenerimaan(Request $request)
+    {
+        $data = PengadaanPenerimaanObat::where('id', "=", $request->id)->first();
+        if($data){
+            $itemsAdded = ItemPengadaanPenerimaan::where('pengadaan_id', '=', $request->id)->get()->pluck('obat_bmhp_id');
+            $items = ObatBMHP::whereNotIn('id', $itemsAdded)->get();
+            return view('PenerimaanObatBMHPDetail', [
+                'data' => $data,
+                'items' => $items,
+            ]);
+        }
+        return redirect('/manajemen-farmasi/pengadaan');
+    }
+    public function editPenerimaan(Request $request){
+        $itemPengadaan = ItemPengadaanPenerimaan::where('id', '=', $request->id)->first();
+        if($itemPengadaan){
+            // $pengadaan = PengadaanPenerimaanObat::where('id', $itemPengadaan->pengadaan_id)->first();
+            // if($pengadaan){
+            //     $pengadaan->editor_penerimaan_id = Auth::user()->id;
+            //     $pengadaan->save();
+            // }
+            $itemPengadaan->tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
+            $itemPengadaan->save();
+        }
+        return redirect()->back();
+    }
+
     public function addItem(Request $request){
         $obat_bmhp_id = $request->obat_bmhp_id;
         if(isset($request->nama)){
@@ -168,6 +195,7 @@ class PengadaanPenerimaanObatController extends Controller
         if(Auth::user()->role_id != 1) return redirect('/');
         $datas = PengadaanPenerimaanObat::where("id", "=", $request->id)->first();
         $datas->validator_pengadaan_id = Auth::user()->id;
+        $datas->status = "Pengadaan diproses";
         $datas->save();
         return redirect('/manajemen-farmasi/pengadaan');
     }
@@ -175,8 +203,9 @@ class PengadaanPenerimaanObatController extends Controller
         if(Auth::user()->role_id != 1) return redirect('/');
         $datas = PengadaanPenerimaanObat::where("id", "=", $request->id)->first();
         $datas->validator_penerimaan_id = Auth::user()->id;
+        $datas->status = "Selesai";
         $datas->save();
-        return redirect('/manajemen-farmasi/penerimaan');
+        return redirect()->back();
     }
 
     public function createPenerimaan(Request $request){
@@ -193,9 +222,10 @@ class PengadaanPenerimaanObatController extends Controller
                 $data->dokumen_penerimaan = '/'.$destinationPath.'/'.$fileName;
             }
             if(isset($request->tanggal_penerimaan)) $data->tanggal_penerimaan = $request->tanggal_penerimaan;
+            $data->status = "Menunggu Validasi Penerimaan";
             $data->save();
         }
-        return redirect('/manajemen-farmasi/penerimaan');
+        return redirect()->back();
     }
     public function cancelPenerimaan(Request $request){
         if(Auth::user()->role_id != 6) return redirect('/');
@@ -206,6 +236,7 @@ class PengadaanPenerimaanObatController extends Controller
             $data->tanggal_penerimaan = null;
             $data->editor_penerimaan_id = null;
             $data->validator_penerimaan_id = null;
+            $data->status = "Menunggu Penerimaan";
             $data->save();
 
             $pemusnahanFind = PemusnahanObat::where('pengadaan_id', $request->id)->first();
@@ -214,6 +245,6 @@ class PengadaanPenerimaanObatController extends Controller
                 $pemusnahanFind->delete();
             }
         }
-        return redirect('/manajemen-farmasi/penerimaan');
+        return redirect()->back();
     }
 }

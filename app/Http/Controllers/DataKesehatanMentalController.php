@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDataKesehatanMentalRequest;
 use App\Models\DataKesehatanMental;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\SurveyKesehatanMental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,10 +18,21 @@ class DataKesehatanMentalController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function updateSurvey(Request $request)
+    {
+        SurveyKesehatanMental::create([
+            'link_survey' => $request->link_survey,
+            'editor_id' => Auth::user()->id,
+        ]);
+        return redirect()->back();
+    }
+
     public function index()
     {
+        $link = SurveyKesehatanMental::latest()->first()->link_survey;
         return view('DataKesehatanMental', [
             'datas' => DataKesehatanMental::all(),
+            'link' => $link
         ]);
     }
 

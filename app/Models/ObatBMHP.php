@@ -34,8 +34,14 @@ class ObatBMHP extends Model
         $now = Carbon::now();
         foreach(ItemPengadaanPenerimaan::where('obat_bmhp_id', $this->id)->get() as $item){
             $expired = Carbon::parse(date('Y-m-d', strtotime($item->tanggal_kadaluarsa)));
-            if($item->jumlah > PemusnahanObat::where('pengadaan_id', $item->pengadaan()->id)->first()->items()->where('obat_bmhp_id', $item->obat_bmhp_id)->first()->jumlah){
-                if($now->gt($expired)) $expiredFound = 1;
+            $pemusnahanObat = PemusnahanObat::where('pengadaan_id', $item->pengadaan()->id)->first();
+            if($pemusnahanObat){
+                if($item->jumlah > $pemusnahanObat->items()->where('obat_bmhp_id', $item->obat_bmhp_id)->first()->jumlah){
+                    if($now->gt($expired)) $expiredFound = 1;
+                }
+            }
+            else{
+                if($now->gt($expired) && $this->stok() != 0) $expiredFound = 1;
             }
 
         }

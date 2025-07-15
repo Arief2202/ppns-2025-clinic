@@ -1,16 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\FasilitasPrasarana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FasilitasPrasaranaExport;
 
 class FasilitasPrasaranaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function export(){
+		return Excel::download(new FasilitasPrasaranaExport, 'FasilitasPrasarana.xlsx');
+    }
+
     public function index()
     {
         return view('FasilitasPrasarana', [

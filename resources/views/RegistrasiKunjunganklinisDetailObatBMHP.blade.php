@@ -1,166 +1,184 @@
-
 @extends('layouts.main')
 
 @section('body')
     @include('layouts.cardOpen')
-        @if(isset($errorMessage))
-            <div class="alert-danger mt-1 p-2">{{ $errorMessage }}</div>
-        @endif
-        <div class="row mt-2 mb-2">
-          <div class="col-6">
+    @if (isset($errorMessage))
+        <div class="alert-danger mt-1 p-2">{{ $errorMessage }}</div>
+    @endif
+    <div class="row mt-2 mb-2">
+        <div class="col-6">
             <div class="col">
-              <h5 class="card-title">Detail Kunjungan Klinis Penggunaan Obat BMHP</h5>
+                <h5 class="card-title">Detail Kunjungan Klinis Penggunaan Obat BMHP</h5>
             </div>
-          </div>
-          @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-          <div class="col-6 d-flex justify-content-end h-50">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="changeEditModal({{$data->id}})">Edit Data</button>
-          </div>
-          @endif
         </div>
+        <div class="col-6 d-flex justify-content-end h-50">
+            <a class="btn btn-warning ms-3" href="/{{ Request::path() }}/export">Export Data</a>
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                <button class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#editModal"
+                    onclick="changeEditModal({{ $data->id }})">Edit Data</button>
+            @endif
+        </div>
+    </div>
 
-        <div style="max-height: 100vh; overflow-y:auto;">
-            <div class="card-text me-3">
-                  <div style="max-height: 68vh; overflow-y:auto;">
-                    <div class="card-text me-3">
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="nip_pasien" class="form-label">NIP Pasien</label>
-                                    <input type="text" class="form-control" id="nip_pasien" value="{{$data->registrasi()->pasien()->nip}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="mb-2">
-                                    <label for="nama_pasien" class="form-label">Nama Pasien</label>
-                                    <input type="text" class="form-control" id="nama_pasien" value="{{$data->registrasi()->pasien()->nama}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="nip_pemeriksa" class="form-label">NIP Pemeriksa</label>
-                                    <input type="text" class="form-control" id="nip_ppemeriksa" value="{{$data->registrasi()->pemeriksa()->nip}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="mb-2">
-                                    <label for="nama_pemeriksa" class="form-label">Nama Pemeriksa</label>
-                                    <input type="text" class="form-control" id="nama_pemeriksa" value="{{$data->registrasi()->pemeriksa()->name}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="tanggal_kunjungan" class="form-label">Tanggal Kunjungan</label>
-                                    <input type="text" class="form-control" id="tanggal_kunjungan" value="{{date("d M Y", strtotime($data->registrasi()->tanggal_kunjungan))}}" disabled>
-                                </div>
+    <div style="max-height: 100vh; overflow-y:auto;">
+        <div class="card-text me-3">
+            <div style="max-height: 68vh; overflow-y:auto;">
+                <div class="card-text me-3">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="nip_pasien" class="form-label">NIP Pasien</label>
+                                <input type="text" class="form-control" id="nip_pasien"
+                                    value="{{ $data->registrasi()->pasien()->nip }}" disabled>
                             </div>
                         </div>
-                        <hr>
-                        <h5>Rekam Medis Klinis</h5>
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="editor" class="form-label">Kode Icd</label>
-                                    <input type="text" class="form-control" id="editor" value="{{$data->kode_icd}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="mb-2">
-                                    <label for="editor" class="form-label">Gejala</label>
-                                    <input type="text" class="form-control" id="editor" value="{{$data->gejala}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="editor" class="form-label">Diagnosis</label>
-                                    <input type="text" class="form-control" id="editor" value="{{$data->diagnosis}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="mb-2">
-                                    <label for="editor" class="form-label">Tindakan Medis</label>
-                                    <input type="text" class="form-control" id="editor" value="{{$data->tindakan_medis}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="mb-2">
-                                    <label for="editor" class="form-label">Dokumentasi Resep</label>
-                                    <button class="btn btn-secondary w-100" onclick="window.open('{{$data->dokumentasi_resep}}','_blank')">Lihat Dokumen</button>
-                                </div>
+                        <div class="col-3">
+                            <div class="mb-2">
+                                <label for="nama_pasien" class="form-label">Nama Pasien</label>
+                                <input type="text" class="form-control" id="nama_pasien"
+                                    value="{{ $data->registrasi()->pasien()->nama }}" disabled>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-6">
-                                <h5>Penggunaan Obat BMHP</h5>
-                            </div>
-                            <div class="col-6">
-                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                    <div class="d-flex justify-content-end w-100 mb-2">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambahkan Obat / BMHP</button>
-                                    </div>
-                                @endif
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="nip_pemeriksa" class="form-label">NIP Pemeriksa</label>
+                                <input type="text" class="form-control" id="nip_ppemeriksa"
+                                    value="{{ $data->registrasi()->pemeriksa()->nip }}" disabled>
                             </div>
                         </div>
-                        <table id="myTable">
-                            <thead class="thead">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Satuan</th>
-                                    <th>Tempat Penyimpanan</th>
-                                    <th>Jumlah</th>
-                                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                        <div class="col-3">
+                            <div class="mb-2">
+                                <label for="nama_pemeriksa" class="form-label">Nama Pemeriksa</label>
+                                <input type="text" class="form-control" id="nama_pemeriksa"
+                                    value="{{ $data->registrasi()->pemeriksa()->name }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="tanggal_kunjungan" class="form-label">Tanggal Kunjungan</label>
+                                <input type="text" class="form-control" id="tanggal_kunjungan"
+                                    value="{{ date('d M Y', strtotime($data->registrasi()->tanggal_kunjungan)) }}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5>Rekam Medis Klinis</h5>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="editor" class="form-label">Kode Icd</label>
+                                <input type="text" class="form-control" id="editor" value="{{ $data->kode_icd }}"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-2">
+                                <label for="editor" class="form-label">Gejala</label>
+                                <input type="text" class="form-control" id="editor" value="{{ $data->gejala }}"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="editor" class="form-label">Diagnosis</label>
+                                <input type="text" class="form-control" id="editor" value="{{ $data->diagnosis }}"
+                                    disabled>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-2">
+                                <label for="editor" class="form-label">Tindakan Medis</label>
+                                <input type="text" class="form-control" id="editor"
+                                    value="{{ $data->tindakan_medis }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="mb-2">
+                                <label for="editor" class="form-label">Dokumentasi Resep</label>
+                                <button class="btn btn-secondary w-100"
+                                    onclick="window.open('{{ $data->dokumentasi_resep }}','_blank')">Lihat Dokumen</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Penggunaan Obat BMHP</h5>
+                        </div>
+                        <div class="col-6">
+                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                <div class="d-flex justify-content-end w-100 mb-2">
+                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">Tambahkan Obat / BMHP</button>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <table id="myTable">
+                        <thead class="thead">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Satuan</th>
+                                <th>Tempat Penyimpanan</th>
+                                <th>Jumlah</th>
+                                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                     <th>Delete</th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody class="tbody">
-                                <?php foreach($data->penggunaanObatBMHP() as $i=>$item){?>
-                                <tr>
-                                    <td>{{$i+1}}</td>
-                                    <td>{{$item->obatBMHP()->nama}}</td>
-                                    <td>{{$item->obatBMHP()->satuan}}</td>
-                                    <td>{{$item->obatBMHP()->tempat_penyimpanan}}</td>
-                                    <td>{{$item->jumlah}}</td>
-                                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                    <form method="POST" action="/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/delete">@csrf
-                                        <input type="hidden" name="id" value="{{$item->id}}">
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <?php foreach($data->penggunaanObatBMHP() as $i=>$item){?>
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $item->obatBMHP()->nama }}</td>
+                                <td>{{ $item->obatBMHP()->satuan }}</td>
+                                <td>{{ $item->obatBMHP()->tempat_penyimpanan }}</td>
+                                <td>{{ $item->jumlah }}</td>
+                                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                    <form method="POST"
+                                        action="/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/delete">@csrf
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
                                         <td>
                                             <button class="btn btn-danger" type="submit">Delete Data</button>
                                         </td>
                                     </form>
-                                    @endif
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                @endif
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
-                    </div>
-                  </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/create" method="POST" enctype="multipart/form-data">@csrf
+                    <form action="/rekam-medis/registrasi-kunjungan-klinis/detail/obat-bmhp/create" method="POST"
+                        enctype="multipart/form-data">@csrf
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan Obat / BMHP</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" id="rekam_medis_klinis_id" name="rekam_medis_klinis_id" value="{{$data->id}}">
+                            <input type="hidden" id="rekam_medis_klinis_id" name="rekam_medis_klinis_id"
+                                value="{{ $data->id }}">
                             <div class="">
                                 <label for="obat_bmhp_id" class="form-label">Obat / BMHP</label>
                             </div>
                             <div class="mb-2">
-                                <select class="selectpicker" data-live-search="true" id="obat_bmhp_id" name="obat_bmhp_id" required>
+                                <select class="selectpicker" data-live-search="true" id="obat_bmhp_id"
+                                    name="obat_bmhp_id" required>
                                     <option value="">Pilih Obat / BMHP</option>
                                     <option value="" id="addNewItem">Tambah Obat / BMHP Baru</option>
-                                    @foreach($obatbmhps as $obatbmhp)
-                                    <option value="{{$obatbmhp->id}}">[{{$obatbmhp->kategori}}] {{$obatbmhp->nama}}</option>
+                                    @foreach ($obatbmhps as $obatbmhp)
+                                        <option value="{{ $obatbmhp->id }}">[{{ $obatbmhp->kategori }}]
+                                            {{ $obatbmhp->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -200,8 +218,7 @@
                 <input type="text" class="form-control" id="tempat_penyimpanan" name="tempat_penyimpanan" required>
             </div>
         </div>
-
-        @endif
+    @endif
     @include('layouts.cardClose')
 @endsection
 
@@ -211,16 +228,15 @@
 @endsection
 
 @section('script')
-        <script src="/vendor/bootstrap-select-1.14.0-beta3/js/bootstrap-select.min.js"></script>
-        <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable({
-            });
-            $('#obat_bmhp_id').change(function(){
-                if(this.options[this.selectedIndex].text == "Tambah Obat / BMHP Baru"){
-                    document.getElementById('addNewItemDiv').innerHTML = document.getElementById('templateAddNewItem').innerHTML;
-                }
-                else{
+    <script src="/vendor/bootstrap-select-1.14.0-beta3/js/bootstrap-select.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({});
+            $('#obat_bmhp_id').change(function() {
+                if (this.options[this.selectedIndex].text == "Tambah Obat / BMHP Baru") {
+                    document.getElementById('addNewItemDiv').innerHTML = document.getElementById(
+                        'templateAddNewItem').innerHTML;
+                } else {
                     document.getElementById('addNewItemDiv').innerHTML = null;
                 }
             })
@@ -259,4 +275,3 @@
         // }
     </script>
 @endsection
-

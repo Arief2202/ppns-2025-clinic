@@ -13,6 +13,9 @@
               <h5 class="card-title">Penerimaan Obat & BMHP</h5>
             </div>
           </div>
+            <div class="col-6 d-flex justify-content-end h-50">
+                <a class="btn btn-warning ms-3" href="/{{ Request::path() }}/export">Export Data</a>
+            </div>
         </div>
 
         <div style="max-height: 100vh; overflow-y:auto;">
@@ -24,9 +27,8 @@
                         <thead class="thead">
                             <tr>
                                 <th>No</th>
-                                @if(Auth::user()->role_id == 6)
-                                <th>Terima Pengadaan</th>
-                                @endif
+                                <th>Detail Penerimaan</th>
+                                <th>Nomor Pengadaan</th>
                                 <th>Tanggal Pengadaan</th>
                                 <th>Dokumen Pengadaan</th>
                                 <th>Jumlah Item Pengadaan</th>
@@ -36,9 +38,6 @@
                                 <th>Tanggal Penerimaan</th>
                                 <th>Dokumen Penerimaan</th>
                                 <th>Editor Penerimaan</th>
-                                @if(Auth::user()->role_id == 1)
-                                    <th>Validate Penerimaan</th>
-                                @endif
                                 <th>Validator Penerimaan</th>
                                 <th>Catatan</th>
                                 <th>Status</th>
@@ -48,7 +47,7 @@
                             <?php foreach($datas as $i=>$data){?>
                             <tr>
                                 <td>{{$i+1}}</td>
-                                @if(Auth::user()->role_id == 6)
+                                {{-- @if(Auth::user()->role_id == 6)
                                     @if(!$data->editorPenerimaan())<td><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal" onclick="changeModal({{$data->id}})">Tandai Diterima</button></td>@endif
                                     @if($data->editorPenerimaan())
                                     <td>
@@ -58,7 +57,9 @@
                                         </form>
                                     </td>
                                     @endif
-                                @endif
+                                @endif --}}
+                                <td><a class="btn btn-success" href="/manajemen-farmasi/penerimaan/detail?id={{$data->id}}">Lihat Detail</button></td>
+                                <td>{{$data->nomor_pengadaan}}</td>
                                 <td>{{date("d M Y", strtotime($data->tanggal_pengadaan))}}</td>
                                 <td><button class="btn btn-secondary" onclick="window.open('{{$data->dokumen_pengadaan}}','_blank')">Lihat Dokumen</button></td>
                                 <td>{{$data->items()->count()}}</td>
@@ -68,18 +69,6 @@
                                 <td>{{$data->tanggal_penerimaan ? date("d M Y", strtotime($data->tanggal_penerimaan)) : '-'}}</td>
                                 <td>@if($data->dokumen_penerimaan) <button class="btn btn-secondary" onclick="window.open('{{$data->dokumen_penerimaan}}','_blank')">Lihat Dokumen</button>@else-@endif</td>
                                 <td>@if($data->editorPenerimaan()) {{$data->editorPenerimaan()->name}} @else-@endif</td>
-                                @if(Auth::user()->role_id == 1)
-                                    <td>
-                                        @if($data->editorPenerimaan())
-                                            <form method="POST" action="/manajemen-farmasi/penerimaan/validate">@csrf
-                                                <input type="hidden" name="id" value="{{$data->id}}">
-                                                <button class="btn btn-success" {{$data->validatorPenerimaan() ? 'disabled' : 'type="submit"'}}>Validasi</button>
-                                            </form>
-                                        @else
-                                            <button class="btn btn-success" disabled>Validasi</button>
-                                        @endif
-                                    </td>
-                                @endif
                                 <td>{{$data->validatorPenerimaan() ? $data->validatorPenerimaan()->name : '-'}}</td>
                                 <td>{{$data->catatan}}</td>
                                 <td>{{$data->status}}</td>

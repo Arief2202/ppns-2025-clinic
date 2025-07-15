@@ -12,6 +12,9 @@
               <h5 class="card-title">{{$title}}</h5>
             </div>
           </div>
+          <div class="col-6 d-flex justify-content-end h-50">
+            <a class="btn btn-warning ms-3" href="/{{Request::path()}}/export">Export Data</a>
+          </div>
         </div>
 
         <div style="max-height: 100vh; overflow-y:auto;">
